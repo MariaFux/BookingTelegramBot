@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingTelegramBot.Repository;
 using BookingTelegramBot.Repository.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,11 @@ namespace BookingTelegramBot
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
             services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddTransient<BookingRoomDbContext>();
+            services.AddTransient<ParameterRepo>();
+            services.AddTransient<RoomRepo>();
+            services.AddTransient<UserReservationRepo>();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
