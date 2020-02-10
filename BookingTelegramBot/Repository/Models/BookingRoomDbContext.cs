@@ -12,7 +12,7 @@ namespace BookingTelegramBot.Repository.Models
         {
         }
 
-        protected BookingRoomDbContext()
+        public BookingRoomDbContext()
         {
         }
 
