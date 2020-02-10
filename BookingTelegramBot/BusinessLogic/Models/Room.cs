@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookingTelegramBot.Repository.Models
+namespace BookingTelegramBot.BusinessLogic.Models
 {
     public class Room
     {
