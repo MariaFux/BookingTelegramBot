@@ -15,8 +15,8 @@ namespace BookingTelegramBot.Repository.Models
 
         public Room()
         {
-            Parameters = new List<Parameter>();
-            UsersReservations = new List<UserReservation>();
+            var Parameters = new List<Parameter>();
+            var UsersReservations = new List<UserReservation>();
         }
     }
 }
