@@ -6,7 +6,7 @@ using Telegram.Bot;
 
 namespace BookingTelegramBot.BusinessLogic.Services
 {
-    interface IBotService
+    public interface IBotService
     {
         TelegramBotClient Client { get; }
     }
