@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookingTelegramBot.BusinessLogic.Services;
+using BookingTelegramBot.Configurations;
 using BookingTelegramBot.Repository;
 using BookingTelegramBot.Repository.Models;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,7 @@ namespace BookingTelegramBot
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
             services.AddTransient<UserReservationService>();
+            services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
