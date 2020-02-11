@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingTelegramBot.Controllerr
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/{id}")]
     [ApiController]
     public class RoomController : Controller
     {
@@ -18,10 +18,10 @@ namespace BookingTelegramBot.Controllerr
         {
             this.roomService = roomService;
         }
-
-        public async void GetRoomById()
+        
+        public async void GetRoomById(int id)
         {
-           var room = roomService.GetRoomByID(1);
+           var room = roomService.GetRoomByID(id);
            
             await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.AnotherDescription);
         }
