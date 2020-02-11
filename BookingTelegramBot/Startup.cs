@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Telegram.Bot;
 
 namespace BookingTelegramBot
 {
@@ -35,11 +36,17 @@ namespace BookingTelegramBot
             services.AddTransient<ParameterRepo>();
             services.AddTransient<RoomRepo>();
             services.AddTransient<UserReservationRepo>();
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
             services.AddTransient<UserReservationService>();
+
+            services.AddScoped<IUpdateService, UpdateService>();
+            services.AddSingleton<IBotService, BotService>();
+            
             services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
+
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,16 +58,18 @@ namespace BookingTelegramBot
             }
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Room}/{action=GetRoomByID}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
