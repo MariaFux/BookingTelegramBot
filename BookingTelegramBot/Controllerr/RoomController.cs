@@ -22,7 +22,7 @@ namespace BookingTelegramBot.Controllerr
         public async void GetRoomById()
         {
            var room = roomService.GetRoomByID(3);
-           await Response.WriteAsync(room.Name);
+           await Response.WriteAsync(room.Name + " Description: " + room.Description);
         }
     }
 }
