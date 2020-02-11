@@ -12,10 +12,10 @@ namespace BookingTelegramBot.BusinessLogic.Services
     {
         private readonly BotConfiguration _config;
 
-        public BotService(IOptions<BotConfiguration> config, TelegramBotClient client)
+        public BotService(IOptions<BotConfiguration> config)
         {
             _config = config.Value;
-            Client = client;
+            Client = new TelegramBotClient(_config.Token);
         }
 
         public TelegramBotClient Client { get; }
