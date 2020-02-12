@@ -26,9 +26,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             return roomRepo.GetRoomById(roomId);
         }
 
-        public void Inser(Room room)
+        public void Insert(Room room)
         {
-            roomRepo.Inser(room);
+            roomRepo.Insert(room);
         }        
 
         public void Update(Room room)
