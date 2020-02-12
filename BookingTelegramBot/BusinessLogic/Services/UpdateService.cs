@@ -31,20 +31,6 @@ namespace BookingTelegramBot.BusinessLogic.Services
                     // Echo each Message
                     await botService.Client.SendTextMessageAsync(message.Chat.Id, message.Text);
                     break;
-
-                case MessageType.Photo:
-                    // Download Photo
-                    var fileId = message.Photo.LastOrDefault()?.FileId;
-                    var file = await botService.Client.GetFileAsync(fileId);
-
-                    var filename = file.FileId + "." + file.FilePath.Split('.').Last();
-                    using (var saveImageStream = System.IO.File.Open(filename, FileMode.Create))
-                    {
-                        await botService.Client.DownloadFileAsync(file.FilePath, saveImageStream);
-                    }
-
-                    await botService.Client.SendTextMessageAsync(message.Chat.Id, "Thx for the Pics");
-                    break;
             }
         }
     }
