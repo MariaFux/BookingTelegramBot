@@ -10,7 +10,7 @@ namespace BookingTelegramBot.BusinessLogic.Services
     {
         IEnumerable<Room> GetAll();
         Room GetRoomById(int roomId);
-        void Inser(Room room);
+        void Insert(Room room);
         void Update(Room room);
         void Delete(int roomId);
         void Save();
