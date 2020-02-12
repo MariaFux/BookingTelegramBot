@@ -44,6 +44,8 @@ namespace BookingTelegramBot
             services.AddSingleton<IBotService, BotService>();
 
             services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
+
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,9 +57,11 @@ namespace BookingTelegramBot
             }
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
