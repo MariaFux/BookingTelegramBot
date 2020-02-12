@@ -9,10 +9,10 @@ namespace BookingTelegramBot.BusinessLogic.Services
     interface IUserReservationService
     {
         IEnumerable<UserReservation> GetAll();
-        UserReservation GetUserReservationByID(int userReservationID);
+        UserReservation GetUserReservationById(int userReservationId);
         void Insert(UserReservation userReservation);
         void Update(UserReservation userReservation);
-        void Delete(int userReservationID);
+        void Delete(int userReservationId);
         void Save();
     }
 }

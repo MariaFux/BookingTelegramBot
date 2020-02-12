@@ -21,9 +21,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             return userReservationRepo.GetAll();
         }
 
-        public UserReservation GetUserReservationByID(int userReservationID)
+        public UserReservation GetUserReservationById(int userReservationId)
         {
-            return userReservationRepo.GetUserReservationByID(userReservationID);
+            return userReservationRepo.GetUserReservationById(userReservationId);
         }
 
         public void Insert(UserReservation userReservation)
@@ -36,9 +36,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             userReservationRepo.Update(userReservation);
         }
 
-        public void Delete(int userReservationID)
+        public void Delete(int userReservationId)
         {
-            userReservationRepo.Delete(userReservationID);
+            userReservationRepo.Delete(userReservationId);
         }
 
         public void Save()
