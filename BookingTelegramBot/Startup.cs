@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Telegram.Bot;
 
 namespace BookingTelegramBot
 {
@@ -43,7 +42,7 @@ namespace BookingTelegramBot
 
             services.AddScoped<IUpdateService, UpdateService>();
             services.AddSingleton<IBotService, BotService>();
-            
+
             services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
 
             services.AddControllers().AddNewtonsoftJson();

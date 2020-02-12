@@ -21,9 +21,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             return roomRepo.GetAll();
         }
 
-        public Room GetRoomByID(int roomID)
+        public Room GetRoomById(int roomId)
         {
-            return roomRepo.GetRoomByID(roomID);
+            return roomRepo.GetRoomById(roomId);
         }
 
         public void Inser(Room room)
@@ -36,9 +36,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             roomRepo.Update(room);
         }
 
-        public void Delete(int roomID)
+        public void Delete(int roomId)
         {
-            roomRepo.Delete(roomID);
+            roomRepo.Delete(roomId);
         }
 
         public void Save()

@@ -7,7 +7,7 @@ namespace BookingTelegramBot.Repository.Models
 {
     public class Room
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string AnotherDescription { get; set; }
