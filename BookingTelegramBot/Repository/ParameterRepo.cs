@@ -20,9 +20,9 @@ namespace BookingTelegramBot.Repository
             return context.Parameters.ToList();
         }
 
-        public Parameter GetParameterByID(int parameterID)
+        public Parameter GetParameterById(int parameterId)
         {
-            return context.Parameters.Find(parameterID);
+            return context.Parameters.Find(parameterId);
         }
 
         public void Insert(Parameter parameter)
@@ -35,9 +35,9 @@ namespace BookingTelegramBot.Repository
             context.Entry(parameter).State = EntityState.Modified;
         }
 
-        public void Delete(int parameterID)
+        public void Delete(int parameterId)
         {
-            Parameter parameter = context.Parameters.Find(parameterID);
+            Parameter parameter = context.Parameters.Find(parameterId);
             context.Parameters.Remove(parameter);
         }
 

@@ -21,9 +21,9 @@ namespace BookingTelegramBot.Repository
             return context.Rooms.ToList();
         }
 
-        public Room GetRoomByID(int roomID)
+        public Room GetRoomById(int roomId)
         {
-            return context.Rooms.Find(roomID);
+            return context.Rooms.Find(roomId);
         }
 
         public void Inser(Room room)
@@ -36,9 +36,9 @@ namespace BookingTelegramBot.Repository
             context.Entry(room).State = EntityState.Modified;
         }
 
-        public void Delete(int roomID)
+        public void Delete(int roomId)
         {
-            Room room = context.Rooms.Find(roomID);
+            Room room = context.Rooms.Find(roomId);
             context.Rooms.Remove(room);
         }
 

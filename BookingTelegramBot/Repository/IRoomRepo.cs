@@ -9,10 +9,10 @@ namespace BookingTelegramBot.Repository
     interface IRoomRepo
     {
         IEnumerable<Room> GetAll();
-        Room GetRoomByID(int roomID);
+        Room GetRoomById(int roomId);
         void Inser(Room room);
         void Update(Room room);
-        void Delete(int roomID);
+        void Delete(int roomId);
         void Save();
     }
 }
