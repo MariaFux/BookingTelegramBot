@@ -16,9 +16,9 @@ namespace BookingTelegramBot.Repository
             return context.UsersReservations.ToList();
         }
 
-        public UserReservation GetUserReservationByID(int userReservationID)
+        public UserReservation GetUserReservationById(int userReservationId)
         {
-            return context.UsersReservations.Find(userReservationID);
+            return context.UsersReservations.Find(userReservationId);
         }
 
         public void Insert(UserReservation userReservation)
@@ -31,9 +31,9 @@ namespace BookingTelegramBot.Repository
             context.Entry(userReservation).State = EntityState.Modified;
         }
 
-        public void Delete(int userReservationID)
+        public void Delete(int userReservationId)
         {
-            UserReservation userReservation = context.UsersReservations.Find(userReservationID);
+            UserReservation userReservation = context.UsersReservations.Find(userReservationId);
             context.UsersReservations.Remove(userReservation);
         }
 

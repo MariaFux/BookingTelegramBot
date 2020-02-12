@@ -9,10 +9,10 @@ namespace BookingTelegramBot.BusinessLogic.Services
     interface IParameterService
     {
         IEnumerable<Parameter> GetAll();
-        Parameter GetParameterByID(int parameterID);
+        Parameter GetParameterById(int parameterId);
         void Insert(Parameter parameter);
         void Update(Parameter parameter);
-        void Delete(int parameterID);
+        void Delete(int parameterId);
         void Save();
     }
 }

@@ -21,9 +21,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             return parameterRepo.GetAll();
         }
 
-        public Parameter GetParameterByID(int parameterID)
+        public Parameter GetParameterById(int parameterId)
         {
-            return parameterRepo.GetParameterByID(parameterID);
+            return parameterRepo.GetParameterById(parameterId);
         }
 
         public void Insert(Parameter parameter)
@@ -36,9 +36,9 @@ namespace BookingTelegramBot.BusinessLogic.Services
             parameterRepo.Update(parameter);
         }
 
-        public void Delete(int parameterID)
+        public void Delete(int parameterId)
         {
-            parameterRepo.Delete(parameterID);
+            parameterRepo.Delete(parameterId);
         }
 
         public void Save()
