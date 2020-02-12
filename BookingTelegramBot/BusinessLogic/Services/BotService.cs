@@ -19,6 +19,5 @@ namespace BookingTelegramBot.BusinessLogic.Services
         }
 
         public TelegramBotClient Client { get; }
-    {
     }
 }
