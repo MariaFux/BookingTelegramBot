@@ -26,7 +26,7 @@ namespace BookingTelegramBot.Repository
             return context.Rooms.Find(roomId);
         }
 
-        public void Inser(Room room)
+        public void Insert(Room room)
         {
             context.Rooms.Add(room);
         }        
