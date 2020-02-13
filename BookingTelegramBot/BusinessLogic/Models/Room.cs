@@ -9,6 +9,8 @@ namespace BookingTelegramBot.BusinessLogic.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string AnotherDescription { get; set; }
 
         public ICollection<Parameter> Parameters { get; set; }
         public ICollection<UserReservation> UsersReservations { get; set; }

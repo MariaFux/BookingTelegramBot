@@ -18,11 +18,13 @@ namespace BookingTelegramBot.Controllerr
         {
             this.roomService = roomService;
         }
-
-        public async void GetRoomById()
+        
+        [Route("{id}")]
+        public async void GetRoomById(int id)
         {
-           var room = roomService.GetRoomById(3);
-           await Response.WriteAsync(room.Name);
+           var room = roomService.GetRoomById(id);
+           
+            await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.AnotherDescription);
         }
     }
 }
