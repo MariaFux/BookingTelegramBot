@@ -17,7 +17,7 @@ namespace BookingTelegramBot.Controllers
         {
             return "Get";
         }
-
+        
         [HttpPost]
         public async Task<OkResult> Post([FromBody]Update update)
         {
