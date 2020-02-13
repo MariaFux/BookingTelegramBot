@@ -9,16 +9,14 @@ namespace BookingTelegramBot.Repository.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string AnotherDescription { get; set; }
 
         public ICollection<Parameter> Parameters { get; set; }
         public ICollection<UserReservation> UsersReservations { get; set; }
 
         public Room()
         {
-            var Parameters = new List<Parameter>();
-            var UsersReservations = new List<UserReservation>();
+            Parameters = new List<Parameter>();
+            UsersReservations = new List<UserReservation>();
         }
     }
 }
