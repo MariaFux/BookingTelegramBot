@@ -15,7 +15,7 @@ namespace BookingTelegramBot.BusinessLogic.Services
 
         public UpdateService(IBotService botService)
         {
-            this.botService = botService;        
+            this.botService = botService;
         }
 
         public async Task EchoAsync(Update update)

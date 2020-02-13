@@ -6,7 +6,7 @@ using Telegram.Bot.Types;
 
 namespace BookingTelegramBot.BusinessLogic.Services
 {
-    public interface IUpdateService
+    interface IUpdateService
     {
         Task EchoAsync(Update update);
     }
