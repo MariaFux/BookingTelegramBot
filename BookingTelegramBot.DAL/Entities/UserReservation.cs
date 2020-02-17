@@ -11,5 +11,11 @@ namespace BookingTelegramBot.DAL.Entities
         public DateTime Date { get; set; }
         public DateTime TimeFrom { get; set; }
         public DateTime TimeTo { get; set; }
+        public ICollection<RoomUserReservation> RoomUserReservations { get; set; }
+
+        public UserReservation()
+        {
+            RoomUserReservations = new List<RoomUserReservation>();
+        }
     }
 }
