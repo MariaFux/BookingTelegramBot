@@ -10,14 +10,13 @@ namespace BookingTelegramBot.DAL.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string AnotherDescription { get; set; }
-
-        public ICollection<Parameter> Parameters { get; set; }
-        public ICollection<UserReservation> UsersReservations { get; set; }
+        public ICollection<RoomParameter> RoomParameters { get; set; }
+        public ICollection<RoomUserReservation> RoomUserReservations { get; set; }
 
         public Room()
         {
-            var Parameters = new List<Parameter>();
-            var UsersReservations = new List<UserReservation>();
+            RoomParameters = new List<RoomParameter>();
+            RoomUserReservations = new List<RoomUserReservation>();
         }
     }
 }
