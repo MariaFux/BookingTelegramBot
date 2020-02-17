@@ -8,11 +8,6 @@ namespace BookingTelegramBot.DAL.Entities
     {
         public int Id { get; set; }
         public string NameOfParameter { get; set; }
-        public ICollection<RoomParameter> RoomParameters { get; set; }
-
-        public Parameter()
-        {
-            RoomParameters = new List<RoomParameter>();
-        }
+        public ICollection<RoomParameter> RoomParameters { get; set; } = new List<RoomParameter>();
     }
 }
