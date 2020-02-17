@@ -4,14 +4,16 @@ using BookingTelegramBot.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingTelegramBot.Migrations
 {
     [DbContext(typeof(BookingRoomDbContext))]
-    partial class BookingRoomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200217122628_DateTimeMigration")]
+    partial class DateTimeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
