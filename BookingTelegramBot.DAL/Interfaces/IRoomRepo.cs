@@ -13,5 +13,6 @@ namespace BookingTelegramBot.DAL.Interfaces
         void Update(Room room);
         void Delete(int roomId);
         void Save();
+        IEnumerable<Room> GetAllWithParameters();
     }
 }
