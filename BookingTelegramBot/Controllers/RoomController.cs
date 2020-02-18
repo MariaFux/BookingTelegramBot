@@ -26,5 +26,21 @@ namespace BookingTelegramBot.Controllers
            
             await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.AnotherDescription);
         }
+
+        [Route("all")]
+        public async void GetAll()
+        {
+            var rooms = roomService.GetAllWithParameters();
+            
+            foreach (var room in rooms)
+            {
+                await Response.WriteAsync(room.Name + " " + room.Description + " " + room.AnotherDescription + " \n");
+                foreach(var param in room.RoomParameters)
+                {
+                    await Response.WriteAsync(param.Parameter.NameOfParameter + " \n");
+                }
+            }
+                
+        }
     }
 }
