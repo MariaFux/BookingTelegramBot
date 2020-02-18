@@ -48,5 +48,10 @@ namespace BookingTelegramBot.DAL.Repositories
         {
             context.SaveChanges();
         }
+
+        public IEnumerable<Room> GetAllWithParameters()
+        {
+            return context.Rooms.Include(p => p.RoomParameters).ThenInclude(p => p.Parameter);
+        }
     }
 }
