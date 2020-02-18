@@ -45,5 +45,10 @@ namespace BookingTelegramBot.BLL.Services
         {
             roomRepo.Save();
         }
+
+        public IEnumerable<Room> GetAllWithParameters()
+        {
+            return roomRepo.GetAllWithParameters();
+        }
     }
 }
