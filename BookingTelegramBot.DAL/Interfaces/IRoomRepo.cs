@@ -2,17 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BookingTelegramBot.DAL.Interfaces
 {
     interface IRoomRepo
     {
-        IEnumerable<Room> GetAll();
-        Room GetRoomById(int roomId);
+        Task<IEnumerable<Room>> GetAll();
+        Task<Room> GetRoomById(int roomId);
         void Insert(Room room);
         void Update(Room room);
         void Delete(int roomId);
-        void Save();
-        IEnumerable<Room> GetAllWithParameters();
+        Task Save();
+        Task<IEnumerable<Room>> GetAllWithParameters();
+        Task<IEnumerable<Room>> GetAllFree();
     }
 }
