@@ -40,8 +40,7 @@ namespace BookingTelegramBot
             //services.AddControllersWithViews();
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
-            services.AddTransient<UserReservationService>();
-            services.AddTransient<AllRoomComand>();            
+            services.AddTransient<UserReservationService>();          
 
             services.AddControllers().AddNewtonsoftJson();
 
