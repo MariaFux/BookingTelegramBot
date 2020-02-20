@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookingTelegramBot.Repository;
-using BookingTelegramBot.Repository.Models;
+using BookingTelegramBot.BLL.Infrastructure;
+using BookingTelegramBot.BLL.Services;
+using BookingTelegramBot.DAL.EF;
+using BookingTelegramBot.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,12 +30,17 @@ namespace BookingTelegramBot
         public void ConfigureServices(IServiceCollection services)
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
-            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString, b => b.MigrationsAssembly("BookingTelegramBot")));
             services.AddTransient<BookingRoomDbContext>();
             services.AddTransient<ParameterRepo>();
             services.AddTransient<RoomRepo>();
             services.AddTransient<UserReservationRepo>();
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
+            services.AddTransient<ParameterService>();
+            services.AddTransient<RoomService>();
+            services.AddTransient<UserReservationService>();
+
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,14 +52,14 @@ namespace BookingTelegramBot
             }
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
+
+            Bot.GetBotClientAsync().Wait();
         }
     }
 }

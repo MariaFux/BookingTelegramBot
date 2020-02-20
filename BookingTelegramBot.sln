@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingTelegramBot", "BookingTelegramBot\BookingTelegramBot.csproj", "{0CA5B725-5A0C-4CC6-A8F2-AB92DD9B3169}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingTelegramBot", "BookingTelegramBot\BookingTelegramBot.csproj", "{0CA5B725-5A0C-4CC6-A8F2-AB92DD9B3169}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingTelegramBot.DAL", "BookingTelegramBot.DAL\BookingTelegramBot.DAL.csproj", "{FE1057FF-2866-4AF4-B2CA-7E45970F8E8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingTelegramBot.BLL", "BookingTelegramBot.BLL\BookingTelegramBot.BLL.csproj", "{71B97E7E-5B66-49D1-9985-1526A0F8B6EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{0CA5B725-5A0C-4CC6-A8F2-AB92DD9B3169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA5B725-5A0C-4CC6-A8F2-AB92DD9B3169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA5B725-5A0C-4CC6-A8F2-AB92DD9B3169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1057FF-2866-4AF4-B2CA-7E45970F8E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1057FF-2866-4AF4-B2CA-7E45970F8E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1057FF-2866-4AF4-B2CA-7E45970F8E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1057FF-2866-4AF4-B2CA-7E45970F8E8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B97E7E-5B66-49D1-9985-1526A0F8B6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B97E7E-5B66-49D1-9985-1526A0F8B6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B97E7E-5B66-49D1-9985-1526A0F8B6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B97E7E-5B66-49D1-9985-1526A0F8B6EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
