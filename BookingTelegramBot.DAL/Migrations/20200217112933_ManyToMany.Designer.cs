@@ -72,6 +72,21 @@ namespace BookingTelegramBot.DAL.Migrations
                     b.ToTable("RoomParameter");
                 });
 
+            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomParameter", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParameterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomId", "ParameterId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.ToTable("RoomParameter");
+                });
+
             modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomUserReservation", b =>
                 {
                     b.Property<int>("RoomId")
@@ -94,7 +109,10 @@ namespace BookingTelegramBot.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("DateTimeFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTimeTo")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
