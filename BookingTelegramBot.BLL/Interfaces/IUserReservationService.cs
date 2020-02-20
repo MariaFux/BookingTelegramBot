@@ -1,17 +1,18 @@
-﻿using BookingTelegramBot.DAL.Entities;
+﻿using BookingTelegramBot.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BookingTelegramBot.BLL.Interfaces
 {
     interface IUserReservationService
     {
-        IEnumerable<UserReservation> GetAll();
-        UserReservation GetUserReservationById(int userReservationId);
-        void Insert(UserReservation userReservation);
-        void Update(UserReservation userReservation);
+        Task<IEnumerable<UserReservationDTO>> GetAll();
+        Task<UserReservationDTO> GetUserReservationById(int userReservationId);
+        void Insert(UserReservationDTO userReservation);
+        void Update(UserReservationDTO userReservation);
         void Delete(int userReservationId);
-        void Save();
+        Task Save();
     }
 }
