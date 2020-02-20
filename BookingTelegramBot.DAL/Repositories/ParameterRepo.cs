@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BookingTelegramBot.DAL.Repositories
 {
@@ -17,14 +18,14 @@ namespace BookingTelegramBot.DAL.Repositories
             this.context = context;
         }
 
-        public IEnumerable<Parameter> GetAll()
+        public async Task<IEnumerable<Parameter>> GetAll()
         {
-            return context.Parameters.ToList();
+            return await context.Parameters.ToListAsync();
         }
 
-        public Parameter GetParameterById(int parameterId)
+        public async Task<Parameter> GetParameterById(int parameterId)
         {
-            return context.Parameters.Find(parameterId);
+            return await context.Parameters.FindAsync(parameterId);
         }
 
         public void Insert(Parameter parameter)
@@ -43,9 +44,9 @@ namespace BookingTelegramBot.DAL.Repositories
             context.Parameters.Remove(parameter);
         }
 
-        public void Save()
+        public async Task Save()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

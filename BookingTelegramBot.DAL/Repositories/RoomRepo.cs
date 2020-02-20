@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BookingTelegramBot.DAL.Repositories
 {
@@ -18,14 +19,14 @@ namespace BookingTelegramBot.DAL.Repositories
             this.context = context;
         }
 
-        public IEnumerable<Room> GetAll()
+        public async Task<IEnumerable<Room>> GetAll()
         {
-            return context.Rooms.ToList();
+            return await context.Rooms.ToListAsync();
         }
 
-        public Room GetRoomById(int roomId)
+        public async Task<Room> GetRoomById(int roomId)
         {
-            return context.Rooms.Find(roomId);
+            return await context.Rooms.FindAsync(roomId);
         }
 
         public void Insert(Room room)
@@ -44,14 +45,19 @@ namespace BookingTelegramBot.DAL.Repositories
             context.Rooms.Remove(room);
         }
 
-        public void Save()
+        public async Task Save()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public IEnumerable<Room> GetAllWithParameters()
+        public async Task<IEnumerable<Room>> GetAllWithParameters()
         {
-            return context.Rooms.Include(p => p.RoomParameters).ThenInclude(p => p.Parameter);
+            return await context.Rooms.Include(p => p.RoomParameters).ThenInclude(p => p.Parameter).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Room>> GetAllFree()
+        {
+            return await context.Rooms.Include(p => p.RoomUserReservations).ThenInclude(p => p.UserReservation).ToListAsync();
         }
     }
 }
