@@ -8,8 +8,8 @@ namespace BookingTelegramBot.BLL.DTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime TimeFrom { get; set; }
-        public DateTime TimeTo { get; set; }
+        public DateTime DateTimeFrom { get; set; }
+        public DateTime DateTimeTo { get; set; }
+        public List<RoomUserReservationDTO> RoomUserReservations { get; set; }
     }
 }
