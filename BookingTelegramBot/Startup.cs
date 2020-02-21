@@ -8,6 +8,7 @@ using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,11 +41,11 @@ namespace BookingTelegramBot
             //services.AddControllersWithViews();
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
-            services.AddTransient<UserReservationService>();          
-
+            services.AddTransient<UserReservationService>();
             services.AddControllers().AddNewtonsoftJson();
-
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = new PathString("/account/login"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +58,9 @@ namespace BookingTelegramBot
 
             app.UseRouting();
             app.UseCors();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
