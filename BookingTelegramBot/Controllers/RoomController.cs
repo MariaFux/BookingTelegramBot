@@ -20,6 +20,7 @@ namespace BookingTelegramBot.Controllers
             this.roomService = roomService;
         }
         
+        [HttpGet]
         [Route("{id}")]
         public async Task GetRoomById(int id)
         {
@@ -27,6 +28,7 @@ namespace BookingTelegramBot.Controllers
             await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.NumberOfPersons);
         }
 
+        [HttpGet]
         [Route("all")]
         public async Task GetAll()
         {
@@ -43,6 +45,7 @@ namespace BookingTelegramBot.Controllers
                 
         }
 
+        [HttpGet]
         [Route("free/{count}")]
         public async Task GetAllFree(int count)
         {
@@ -65,6 +68,7 @@ namespace BookingTelegramBot.Controllers
             }
         }
 
+        [HttpPost]
         [Route("insert")]
         public async Task<IActionResult> Insert()
         {
@@ -74,6 +78,7 @@ namespace BookingTelegramBot.Controllers
             return NoContent();
         }
 
+        [HttpDelete]
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
