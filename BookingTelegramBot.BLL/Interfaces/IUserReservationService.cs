@@ -8,11 +8,11 @@ namespace BookingTelegramBot.BLL.Interfaces
 {
     interface IUserReservationService
     {
-        Task<IEnumerable<UserReservationDTO>> GetAll();
-        Task<UserReservationDTO> GetUserReservationById(int userReservationId);
+        Task<IEnumerable<UserReservationDTO>> GetAllAsync();
+        Task<UserReservationDTO> GetUserReservationByIdAsync(int userReservationId);
         void Insert(UserReservationDTO userReservation);
         void Update(UserReservationDTO userReservation);
         void Delete(int userReservationId);
-        Task Save();
+        Task SaveAsync();
     }
 }

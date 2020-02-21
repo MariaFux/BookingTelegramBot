@@ -19,12 +19,12 @@ namespace BookingTelegramBot.DAL.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<Room>> GetAll()
+        public async Task<IEnumerable<Room>> GetAllAsync()
         {
             return await context.Rooms.ToListAsync();
         }
 
-        public async Task<Room> GetRoomById(int roomId)
+        public async Task<Room> GetRoomByIdAsync(int roomId)
         {
             return await context.Rooms.FindAsync(roomId);
         }
@@ -45,17 +45,17 @@ namespace BookingTelegramBot.DAL.Repositories
             context.Rooms.Remove(room);
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Room>> GetAllWithParameters()
+        public async Task<IEnumerable<Room>> GetAllWithParametersAsync()
         {
             return await context.Rooms.Include(p => p.RoomParameters).ThenInclude(p => p.Parameter).ToListAsync();
         }
 
-        public async Task<IEnumerable<Room>> GetAllFree()
+        public async Task<IEnumerable<Room>> GetAllFreeAsync()
         {
             return await context.Rooms.Include(p => p.RoomUserReservations).ThenInclude(p => p.UserReservation).ToListAsync();
         }

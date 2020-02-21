@@ -19,12 +19,12 @@ namespace BookingTelegramBot.DAL.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<UserReservation>> GetAll()
+        public async Task<IEnumerable<UserReservation>> GetAllAsync()
         {
             return await context.UsersReservations.ToListAsync();
         }
 
-        public async Task<UserReservation> GetUserReservationById(int userReservationId)
+        public async Task<UserReservation> GetUserReservationByIdAsync(int userReservationId)
         {
             return await context.UsersReservations.FindAsync(userReservationId);
         }
@@ -45,7 +45,7 @@ namespace BookingTelegramBot.DAL.Repositories
             context.UsersReservations.Remove(userReservation);
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await context.SaveChangesAsync();
         }

@@ -21,16 +21,16 @@ namespace BookingTelegramBot.BLL.Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<UserReservationDTO>> GetAll()
+        public async Task<IEnumerable<UserReservationDTO>> GetAllAsync()
         {
-            var reservations = await userReservationRepo.GetAll();
+            var reservations = await userReservationRepo.GetAllAsync();
             var reservationsDTO = mapper.Map<IEnumerable<UserReservationDTO>>(reservations);
             return reservationsDTO;
         }
 
-        public async Task<UserReservationDTO> GetUserReservationById(int userReservationId)
+        public async Task<UserReservationDTO> GetUserReservationByIdAsync(int userReservationId)
         {
-            var reservation = await userReservationRepo.GetUserReservationById(userReservationId);
+            var reservation = await userReservationRepo.GetUserReservationByIdAsync(userReservationId);
             var reservationDTO = mapper.Map<UserReservationDTO>(reservation);
             return reservationDTO;
         }
@@ -50,9 +50,9 @@ namespace BookingTelegramBot.BLL.Services
             userReservationRepo.Delete(userReservationId);
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
-            await userReservationRepo.Save();
+            await userReservationRepo.SaveAsync();
         }
     }
 }

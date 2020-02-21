@@ -8,11 +8,11 @@ namespace BookingTelegramBot.DAL.Interfaces
 {
     interface IParameterRepo
     {
-        Task<IEnumerable<Parameter>> GetAll();
-        Task<Parameter> GetParameterById(int parameterId);
+        Task<IEnumerable<Parameter>> GetAllAsync();
+        Task<Parameter> GetParameterByIdAsync(int parameterId);
         void Insert(Parameter parameter);
         void Update(Parameter parameter);
         void Delete(int parameterId);
-        Task Save();
+        Task SaveAsync();
     }
 }

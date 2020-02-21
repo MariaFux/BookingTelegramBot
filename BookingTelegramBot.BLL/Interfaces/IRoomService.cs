@@ -8,13 +8,13 @@ namespace BookingTelegramBot.BLL.Interfaces
 {
     interface IRoomService
     {
-        Task<IEnumerable<RoomDTO>> GetAll();
-        Task<RoomDTO> GetRoomById(int roomId);
+        Task<IEnumerable<RoomDTO>> GetAllAsync();
+        Task<RoomDTO> GetRoomByIdAsync(int roomId);
         void Insert(RoomDTO room);
         void Update(RoomDTO room);
         void Delete(int roomId);
-        Task Save();
-        Task<IEnumerable<RoomDTO>> GetAllWithParameters();
-        Task<IEnumerable<RoomDTO>> GetAllFree();
+        Task SaveAsync();
+        Task<IEnumerable<RoomDTO>> GetAllWithParametersAsync();
+        Task<IEnumerable<RoomDTO>> GetAllFreeAsync();
     }
 }

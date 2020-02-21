@@ -18,12 +18,12 @@ namespace BookingTelegramBot.DAL.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<Parameter>> GetAll()
+        public async Task<IEnumerable<Parameter>> GetAllAsync()
         {
             return await context.Parameters.ToListAsync();
         }
 
-        public async Task<Parameter> GetParameterById(int parameterId)
+        public async Task<Parameter> GetParameterByIdAsync(int parameterId)
         {
             return await context.Parameters.FindAsync(parameterId);
         }
@@ -44,7 +44,7 @@ namespace BookingTelegramBot.DAL.Repositories
             context.Parameters.Remove(parameter);
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await context.SaveChangesAsync();
         }

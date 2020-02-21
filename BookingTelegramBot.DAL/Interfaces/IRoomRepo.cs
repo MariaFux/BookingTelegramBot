@@ -8,13 +8,13 @@ namespace BookingTelegramBot.DAL.Interfaces
 {
     interface IRoomRepo
     {
-        Task<IEnumerable<Room>> GetAll();
-        Task<Room> GetRoomById(int roomId);
+        Task<IEnumerable<Room>> GetAllAsync();
+        Task<Room> GetRoomByIdAsync(int roomId);
         void Insert(Room room);
         void Update(Room room);
         void Delete(int roomId);
-        Task Save();
-        Task<IEnumerable<Room>> GetAllWithParameters();
-        Task<IEnumerable<Room>> GetAllFree();
+        Task SaveAsync();
+        Task<IEnumerable<Room>> GetAllWithParametersAsync();
+        Task<IEnumerable<Room>> GetAllFreeAsync();
     }
 }

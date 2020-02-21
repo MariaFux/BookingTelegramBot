@@ -23,15 +23,14 @@ namespace BookingTelegramBot.Controllers
         [Route("{id}")]
         public async Task GetRoomById(int id)
         {
-           var room = await roomService.GetRoomById(id);
-           
+            var room = await roomService.GetRoomByIdAsync(id);           
             await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.NumberOfPersons);
         }
 
         [Route("all")]
         public async Task GetAll()
         {
-            var rooms = await roomService.GetAllWithParameters();
+            var rooms = await roomService.GetAllWithParametersAsync();
             
             foreach (var room in rooms)
             {
@@ -47,7 +46,7 @@ namespace BookingTelegramBot.Controllers
         [Route("free/{count}")]
         public async Task GetAllFree(int count)
         {
-            var rooms = await roomService.GetAllFree();
+            var rooms = await roomService.GetAllFreeAsync();
             var dateTime = new DateTime(2020, 2, 18, 15, 31, 0, DateTimeKind.Utc);
             int persons = count;
             string find = "";
@@ -71,7 +70,7 @@ namespace BookingTelegramBot.Controllers
         {
             RoomDTO roomDTO = new RoomDTO() { Name = "Room 4", Description = "Fourth", NumberOfPersons = 20 };
             roomService.Insert(roomDTO);
-            await roomService.Save();
+            await roomService.SaveAsync();
             return NoContent();
         }
 
@@ -79,7 +78,7 @@ namespace BookingTelegramBot.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             roomService.Delete(id);
-            await roomService.Save();
+            await roomService.SaveAsync();
             return NoContent();
         }
     }
