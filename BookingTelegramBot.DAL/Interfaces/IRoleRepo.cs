@@ -1,0 +1,13 @@
+﻿using BookingTelegramBot.DAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BookingTelegramBot.DAL.Interfaces
+{
+    public interface IRoleRepo
+    {
+        Task<Role> FindByNameAsync(string name);
+    }
+}
