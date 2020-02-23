@@ -9,5 +9,8 @@ namespace BookingTelegramBot.DAL.Entities
     {
         public int Id { get; set; }
         public string TelegramName { get; set; }
+
+        public int? RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }
