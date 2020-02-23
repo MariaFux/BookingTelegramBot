@@ -86,13 +86,6 @@ namespace BookingTelegramBot.Controllers
             roomService.Delete(id);
             await roomService.SaveAsync();
             return NoContent();
-        }
-
-        [Authorize]
-        [Route("identify")]
-        public IActionResult Identify()
-        {
-            return Content(User.Identity.Name);
-        }
+        }        
     }
 }
