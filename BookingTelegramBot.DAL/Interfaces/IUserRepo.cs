@@ -9,5 +9,6 @@ namespace BookingTelegramBot.DAL.Interfaces
     public interface IUserRepo
     {
         Task<User> FindByUserIdAsync(int userId); 
+        Task<User> GetUserAsync(); 
     }
 }
