@@ -1,7 +1,6 @@
 ﻿using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Entities;
 using BookingTelegramBot.DAL.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
