@@ -26,5 +26,12 @@ namespace BookingTelegramBot.BLL.Services
             var userDTO = mapper.Map<UserDTO>(user);
             return userDTO;
         }
+
+        public async Task<UserDTO> GetUserAsync()
+        {
+            var user = await userRepo.GetUserAsync();
+            var userDTO = mapper.Map<UserDTO>(user);
+            return userDTO;
+        }
     }
 }
