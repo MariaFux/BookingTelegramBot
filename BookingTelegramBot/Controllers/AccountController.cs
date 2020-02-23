@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BookingTelegramBot.BLL.DTO;
 using BookingTelegramBot.BLL.Services;
 using BookingTelegramBot.DAL.Entities;
 using BookingTelegramBot.DAL.Repositories;
@@ -28,18 +29,27 @@ namespace BookingTelegramBot.Controllers
         public async Task FindUser(int id)
         {
             var user = await userService.FindByUserIdAsync(id);
-            await Authenticate(user.TelegramName);
+            await Authenticate(user);
         }
 
-        private async Task Authenticate(string userName)
+        [HttpGet]
+        [Route("getuser/")]
+        public async Task GetUser()
+        {
+            var user = await userService.GetUserAsync();
+            await Authenticate(user);
+        }
+
+        private async Task Authenticate(UserDTO user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.TelegramName),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
             
-            ClaimsIdentity uid = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(uid));
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }
