@@ -4,12 +4,10 @@ using System.Text;
 
 namespace BookingTelegramBot.BLL.DTO
 {
-    public class UserDTO
+    public class RoleDTO
     {
         public int Id { get; set; }
-        public string TelegramName { get; set; }
-
-        public int? RoleId { get; set; }
-        public RoleDTO Role { get; set; }
+        public string Name { get; set; }
+        public List<UserDTO> Users { get; set; }
     }
 }
