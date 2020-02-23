@@ -1,4 +1,6 @@
 ﻿using BookingTelegramBot.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,6 @@ namespace BookingTelegramBot.DAL.EF
         public DbSet<Room> Rooms { get; set; }
         public DbSet<UserReservation> UsersReservations { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,19 +50,6 @@ namespace BookingTelegramBot.DAL.EF
                 .HasOne(rp => rp.UserReservation)
                 .WithMany(p => p.RoomUserReservations)
                 .HasForeignKey(rp => rp.UserReservationId);
-
-            modelBuilder.Entity<UserRole>()
-                .HasKey(t => new { t.UserId, t.RoleId });
-
-            modelBuilder.Entity<UserRole>()
-                .HasOne(ur => ur.User)
-                .WithMany(u => u.UserRoles)
-                .HasForeignKey(ur => ur.UserId);
-
-            modelBuilder.Entity<UserRole>()
-                .HasOne(ur => ur.Role)
-                .WithMany(r => r.UserRoles)
-                .HasForeignKey(ur => ur.RoleId);
         }
     }
 }
