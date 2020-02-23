@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace BookingTelegramBot.DAL.Entities
@@ -7,9 +9,6 @@ namespace BookingTelegramBot.DAL.Entities
     public class User
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public string TelegramName { get; set; }
     }
 }
