@@ -22,7 +22,7 @@ namespace BookingTelegramBot.Controllers
         
         [HttpGet]
         [Route("{id}")]
-        public async Task GetRoomById(int id)
+        public async Task GetRoomByIdAsync(int id)
         {
             var room = await roomService.GetRoomByIdAsync(id);           
             await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.NumberOfPersons);
@@ -30,7 +30,7 @@ namespace BookingTelegramBot.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task GetAll()
+        public async Task GetAllAsync()
         {
             var rooms = await roomService.GetAllWithParametersAsync();
             
@@ -47,7 +47,7 @@ namespace BookingTelegramBot.Controllers
 
         [HttpGet]
         [Route("free/{count}")]
-        public async Task GetAllFree(int count)
+        public async Task GetAllFreeAsync(int count)
         {
             var rooms = await roomService.GetAllFreeAsync();
             var dateTime = new DateTime(2020, 2, 18, 15, 31, 0, DateTimeKind.Utc);
@@ -70,7 +70,7 @@ namespace BookingTelegramBot.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public async Task<IActionResult> Insert()
+        public async Task<IActionResult> InsertAsync()
         {
             RoomDTO roomDTO = new RoomDTO() { Name = "Room 4", Description = "Fourth", NumberOfPersons = 20 };
             roomService.Insert(roomDTO);
@@ -80,7 +80,7 @@ namespace BookingTelegramBot.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             roomService.Delete(id);
             await roomService.SaveAsync();
