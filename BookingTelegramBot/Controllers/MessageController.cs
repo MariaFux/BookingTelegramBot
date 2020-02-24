@@ -9,7 +9,7 @@ using Telegram.Bot.Types;
 
 namespace BookingTelegramBot.Controllers
 {
-    [Route("api/message/update")]
+    [Route("api/message")]
     public class MessageController : Controller
     {
         [HttpGet]
@@ -19,7 +19,8 @@ namespace BookingTelegramBot.Controllers
         }
         
         [HttpPost]
-        public async Task<OkResult> Post([FromBody]Update update)
+        [Route("postmessage")]
+        public async Task<OkResult> PostAsync([FromBody]Update update)
         {
             if (update == null) return Ok();
 

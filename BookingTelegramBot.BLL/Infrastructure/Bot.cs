@@ -27,7 +27,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
             //TODO: Add more commands
 
             botClient = new TelegramBotClient(BotSettings.Token);
-            string hook = string.Format(BotSettings.Url, "api/message/update");
+            string hook = string.Format(BotSettings.Url, "api/message/postmessage");
             await botClient.SetWebhookAsync(hook);
             return botClient;
         }
