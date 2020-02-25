@@ -4,14 +4,16 @@ using BookingTelegramBot.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BookingTelegramBot.Migrations
+namespace BookingTelegramBot.DAL.Migrations
 {
     [DbContext(typeof(BookingRoomDbContext))]
-    partial class BookingRoomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200217112933_ManyToMany")]
+    partial class ManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,6 +72,21 @@ namespace BookingTelegramBot.Migrations
                     b.ToTable("RoomParameter");
                 });
 
+            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomParameter", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParameterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomId", "ParameterId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.ToTable("RoomParameter");
+                });
+
             modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomUserReservation", b =>
                 {
                     b.Property<int>("RoomId")
@@ -100,6 +117,12 @@ namespace BookingTelegramBot.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimeTo")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

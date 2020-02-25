@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BookingTelegramBot.Migrations
+namespace BookingTelegramBot.DAL.Migrations
 {
     [DbContext(typeof(BookingRoomDbContext))]
-    [Migration("20200217112933_ManyToMany")]
-    partial class ManyToMany
+    [Migration("20200212103728_ParameterMigration")]
+    partial class ParameterMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace BookingTelegramBot.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.Parameter", b =>
+            modelBuilder.Entity("BookingTelegramBot.Repository.Models.Parameter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,12 +31,17 @@ namespace BookingTelegramBot.Migrations
                     b.Property<string>("NameOfParameter")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Parameters");
                 });
 
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.Room", b =>
+            modelBuilder.Entity("BookingTelegramBot.Repository.Models.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,37 +62,7 @@ namespace BookingTelegramBot.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomParameter", b =>
-                {
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParameterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoomId", "ParameterId");
-
-                    b.HasIndex("ParameterId");
-
-                    b.ToTable("RoomParameter");
-                });
-
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomUserReservation", b =>
-                {
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserReservationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoomId", "UserReservationId");
-
-                    b.HasIndex("UserReservationId");
-
-                    b.ToTable("RoomUserReservation");
-                });
-
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.UserReservation", b =>
+            modelBuilder.Entity("BookingTelegramBot.Repository.Models.UserReservation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,6 +75,9 @@ namespace BookingTelegramBot.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TimeFrom")
                         .HasColumnType("datetime2");
 
@@ -108,37 +86,23 @@ namespace BookingTelegramBot.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoomId");
+
                     b.ToTable("UsersReservations");
                 });
 
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomParameter", b =>
+            modelBuilder.Entity("BookingTelegramBot.Repository.Models.Parameter", b =>
                 {
-                    b.HasOne("BookingTelegramBot.DAL.Entities.Parameter", "Parameter")
-                        .WithMany("RoomParameters")
-                        .HasForeignKey("ParameterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookingTelegramBot.DAL.Entities.Room", "Room")
-                        .WithMany("RoomParameters")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("BookingTelegramBot.Repository.Models.Room", null)
+                        .WithMany("Parameters")
+                        .HasForeignKey("RoomId");
                 });
 
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomUserReservation", b =>
+            modelBuilder.Entity("BookingTelegramBot.Repository.Models.UserReservation", b =>
                 {
-                    b.HasOne("BookingTelegramBot.DAL.Entities.Room", "Room")
-                        .WithMany("RoomUserReservations")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookingTelegramBot.DAL.Entities.UserReservation", "UserReservation")
-                        .WithMany("RoomUserReservations")
-                        .HasForeignKey("UserReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("BookingTelegramBot.Repository.Models.Room", null)
+                        .WithMany("UsersReservations")
+                        .HasForeignKey("RoomId");
                 });
 #pragma warning restore 612, 618
         }

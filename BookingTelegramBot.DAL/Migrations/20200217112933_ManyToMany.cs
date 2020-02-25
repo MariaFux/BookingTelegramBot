@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BookingTelegramBot.Migrations
+namespace BookingTelegramBot.DAL.Migrations
 {
     public partial class ManyToMany : Migration
     {

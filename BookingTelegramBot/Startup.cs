@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using BookingTelegramBot.BLL.Infrastructure;
+using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
@@ -30,7 +32,7 @@ namespace BookingTelegramBot
         public void ConfigureServices(IServiceCollection services)
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
-            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString, b => b.MigrationsAssembly("BookingTelegramBot")));
+            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Transient);
             services.AddTransient<BookingRoomDbContext>();
             services.AddTransient<ParameterRepo>();
             services.AddTransient<RoomRepo>();
@@ -38,9 +40,11 @@ namespace BookingTelegramBot
             //services.AddControllersWithViews();
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
-            services.AddTransient<UserReservationService>();
+            services.AddTransient<UserReservationService>();          
 
             services.AddControllers().AddNewtonsoftJson();
+
+            services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

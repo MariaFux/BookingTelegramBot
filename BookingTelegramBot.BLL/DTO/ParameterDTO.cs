@@ -8,5 +8,6 @@ namespace BookingTelegramBot.BLL.DTO
     {
         public int Id { get; set; }
         public string NameOfParameter { get; set; }
+        public List<RoomParameterDTO> RoomParameters { get; set; }
     }
 }
