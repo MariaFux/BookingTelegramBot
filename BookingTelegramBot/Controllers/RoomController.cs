@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookingTelegramBot.BLL.DTO;
 using BookingTelegramBot.BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -85,6 +86,6 @@ namespace BookingTelegramBot.Controllers
             roomService.Delete(id);
             await roomService.SaveAsync();
             return NoContent();
-        }
+        }        
     }
 }
