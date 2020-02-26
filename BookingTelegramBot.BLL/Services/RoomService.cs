@@ -12,60 +12,60 @@ namespace BookingTelegramBot.BLL.Services
 {
     public class RoomService : IRoomService
     {
-        public RoomRepo roomRepo;
-        private readonly IMapper mapper;
+        private readonly RoomRepo _roomRepo;
+        private readonly IMapper _mapper;
 
         public RoomService(RoomRepo roomRepo, IMapper mapper)
         {
-            this.roomRepo = roomRepo;
-            this.mapper = mapper;
+            _roomRepo = roomRepo;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<RoomDTO>> GetAllAsync()
         {
-            var rooms = await roomRepo.GetAllAsync();
-            var roomsDTO = mapper.Map<IEnumerable<RoomDTO>>(rooms);
+            var rooms = await _roomRepo.GetAllAsync();
+            var roomsDTO = _mapper.Map<IEnumerable<RoomDTO>>(rooms);
             return roomsDTO;
         }
 
         public async Task<RoomDTO> GetRoomByIdAsync(int roomId)
         {
-            var room = await roomRepo.GetRoomByIdAsync(roomId);
-            var roomDTO = mapper.Map<RoomDTO>(room);
+            var room = await _roomRepo.GetRoomByIdAsync(roomId);
+            var roomDTO = _mapper.Map<RoomDTO>(room);
             return roomDTO;
         }
 
         public void Insert(RoomDTO room)
         {
-            roomRepo.Insert(mapper.Map<Room>(room));
+            _roomRepo.Insert(_mapper.Map<Room>(room));
         }
 
         public void Update(RoomDTO room)
         {
-            roomRepo.Update(mapper.Map<Room>(room));
+            _roomRepo.Update(_mapper.Map<Room>(room));
         }
 
         public void Delete(int roomId)
         {
-            roomRepo.Delete(roomId);
+            _roomRepo.Delete(roomId);
         }
 
         public async Task SaveAsync()
         {
-            await roomRepo.SaveAsync();
+            await _roomRepo.SaveAsync();
         }
 
         public async Task<IEnumerable<RoomDTO>> GetAllWithParametersAsync()
         {
-            var roomParameters = await roomRepo.GetAllWithParametersAsync();
-            var roomParametersDTO = mapper.Map<IEnumerable<RoomDTO>>(roomParameters);
+            var roomParameters = await _roomRepo.GetAllWithParametersAsync();
+            var roomParametersDTO = _mapper.Map<IEnumerable<RoomDTO>>(roomParameters);
             return roomParametersDTO;
         }
 
         public async Task<IEnumerable<RoomDTO>> GetAllFreeAsync()
         {
-            var roomFree = await roomRepo.GetAllFreeAsync();
-            var roomFreeDTO = mapper.Map<IEnumerable<RoomDTO>>(roomFree);
+            var roomFree = await _roomRepo.GetAllFreeAsync();
+            var roomFreeDTO = _mapper.Map<IEnumerable<RoomDTO>>(roomFree);
             return roomFreeDTO;
         }
     }

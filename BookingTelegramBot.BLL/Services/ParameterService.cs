@@ -12,47 +12,47 @@ namespace BookingTelegramBot.BLL.Services
 {
     public class ParameterService : IParameterService
     {
-        public ParameterRepo parameterRepo;
-        private readonly IMapper mapper;
+        private readonly ParameterRepo _parameterRepo;
+        private readonly IMapper _mapper;
 
         public ParameterService(ParameterRepo parameterRepo, IMapper mapper)
         {
-            this.parameterRepo = parameterRepo;
-            this.mapper = mapper;
+            _parameterRepo = parameterRepo;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ParameterDTO>> GetAllAsync()
         {
-            var parameters = await parameterRepo.GetAllAsync();
-            var parametersDTO = mapper.Map<IEnumerable<ParameterDTO>>(parameters);
+            var parameters = await _parameterRepo.GetAllAsync();
+            var parametersDTO = _mapper.Map<IEnumerable<ParameterDTO>>(parameters);
             return parametersDTO;
         }
 
         public async Task<ParameterDTO> GetParameterByIdAsync(int parameterId)
         {
-            var parameter = await parameterRepo.GetParameterByIdAsync(parameterId);
-            var parameterDTO = mapper.Map<ParameterDTO>(parameter);
+            var parameter = await _parameterRepo.GetParameterByIdAsync(parameterId);
+            var parameterDTO = _mapper.Map<ParameterDTO>(parameter);
             return parameterDTO;
         }
 
         public void Insert(ParameterDTO parameter)
         {
-            parameterRepo.Insert(mapper.Map<Parameter>(parameter));
+            _parameterRepo.Insert(_mapper.Map<Parameter>(parameter));
         }
 
         public void Update(ParameterDTO parameter)
         {
-            parameterRepo.Update(mapper.Map<Parameter>(parameter));
+            _parameterRepo.Update(_mapper.Map<Parameter>(parameter));
         }
 
         public void Delete(int parameterId)
         {
-            parameterRepo.Delete(parameterId);
+            _parameterRepo.Delete(parameterId);
         }
 
         public async Task SaveAsync()
         {
-            await parameterRepo.SaveAsync();
+            await _parameterRepo.SaveAsync();
         }
     }
 }

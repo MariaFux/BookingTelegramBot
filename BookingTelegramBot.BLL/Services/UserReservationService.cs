@@ -12,47 +12,47 @@ namespace BookingTelegramBot.BLL.Services
 {
     public class UserReservationService : IUserReservationService
     {
-        public UserReservationRepo userReservationRepo;
-        private readonly IMapper mapper;
+        private readonly UserReservationRepo _userReservationRepo;
+        private readonly IMapper _mapper;
 
         public UserReservationService(UserReservationRepo userReservationRepo, IMapper mapper)
         {
-            this.userReservationRepo = userReservationRepo;
-            this.mapper = mapper;
+            _userReservationRepo = userReservationRepo;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<UserReservationDTO>> GetAllAsync()
         {
-            var reservations = await userReservationRepo.GetAllAsync();
-            var reservationsDTO = mapper.Map<IEnumerable<UserReservationDTO>>(reservations);
+            var reservations = await _userReservationRepo.GetAllAsync();
+            var reservationsDTO = _mapper.Map<IEnumerable<UserReservationDTO>>(reservations);
             return reservationsDTO;
         }
 
         public async Task<UserReservationDTO> GetUserReservationByIdAsync(int userReservationId)
         {
-            var reservation = await userReservationRepo.GetUserReservationByIdAsync(userReservationId);
-            var reservationDTO = mapper.Map<UserReservationDTO>(reservation);
+            var reservation = await _userReservationRepo.GetUserReservationByIdAsync(userReservationId);
+            var reservationDTO = _mapper.Map<UserReservationDTO>(reservation);
             return reservationDTO;
         }
 
         public void Insert(UserReservationDTO userReservation)
         {
-            userReservationRepo.Insert(mapper.Map<UserReservation>(userReservation));
+            _userReservationRepo.Insert(_mapper.Map<UserReservation>(userReservation));
         }
 
         public void Update(UserReservationDTO userReservation)
         {
-            userReservationRepo.Update(mapper.Map<UserReservation>(userReservation));
+            _userReservationRepo.Update(_mapper.Map<UserReservation>(userReservation));
         }
 
         public void Delete(int userReservationId)
         {
-            userReservationRepo.Delete(userReservationId);
+            _userReservationRepo.Delete(userReservationId);
         }
 
         public async Task SaveAsync()
         {
-            await userReservationRepo.SaveAsync();
+            await _userReservationRepo.SaveAsync();
         }
     }
 }
