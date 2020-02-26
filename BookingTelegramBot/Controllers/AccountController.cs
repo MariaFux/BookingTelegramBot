@@ -18,34 +18,34 @@ namespace BookingTelegramBot.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private UserService userService;
+        private readonly UserService _userService;
         public AccountController(UserService userService)
         {
-            this.userService = userService;
+            _userService = userService;
         }
 
         [HttpGet]
         [Route("find/{id}")]
-        public async Task FindUser(int id)
+        public async Task FindUserASync(int id)
         {
-            var user = await userService.FindByUserIdAsync(id);
-            await Authenticate(user);
+            var user = await _userService.FindByUserIdAsync(id);
+            await AuthenticateAsync(user);
         }
 
         [HttpGet]
-        [Route("getuser/")]
-        public async Task GetUser()
+        [Route("getuser/{name}")]
+        public async Task GetUserAsync(string name)
         {
-            var user = await userService.GetUserAsync();
-            await Authenticate(user);
+            var user = await _userService.GetUserAsync(name);
+            await AuthenticateAsync(user);
         }
 
-        private async Task Authenticate(UserDTO user)
+        private async Task AuthenticateAsync(UserDTO user)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.TelegramName),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.UserRole.ToString())
             };
             
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
