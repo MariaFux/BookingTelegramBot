@@ -12,41 +12,41 @@ namespace BookingTelegramBot.DAL.Repositories
 {
     public class ParameterRepo : IParameterRepo
     {
-        public BookingRoomDbContext context;
+        private readonly BookingRoomDbContext _context;
         public ParameterRepo(BookingRoomDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Parameter>> GetAllAsync()
         {
-            return await context.Parameters.ToListAsync();
+            return await _context.Parameters.ToListAsync();
         }
 
         public async Task<Parameter> GetParameterByIdAsync(int parameterId)
         {
-            return await context.Parameters.FindAsync(parameterId);
+            return await _context.Parameters.FindAsync(parameterId);
         }
 
         public void Insert(Parameter parameter)
         {
-            context.Parameters.Add(parameter);
+            _context.Parameters.Add(parameter);
         }
 
         public void Update(Parameter parameter)
         {
-            context.Entry(parameter).State = EntityState.Modified;
+            _context.Entry(parameter).State = EntityState.Modified;
         }
 
         public void Delete(int parameterId)
         {
-            Parameter parameter = context.Parameters.Find(parameterId);
-            context.Parameters.Remove(parameter);
+            Parameter parameter = _context.Parameters.Find(parameterId);
+            _context.Parameters.Remove(parameter);
         }
 
         public async Task SaveAsync()
         {
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }
