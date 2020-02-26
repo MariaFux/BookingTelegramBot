@@ -1,5 +1,6 @@
 ﻿using BookingTelegramBot.BLL.Interfaces;
 using BookingTelegramBot.BLL.Services;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,9 +15,9 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private static List<ICommand> _commandsList = new List<ICommand>();
         private readonly BotSettings _settings;
 
-        public Bot(BotSettings settings)
+        public Bot(IOptions<BotSettings> settings)
         {
-            _settings = settings;
+            _settings = settings.Value;
         }
 
         public IReadOnlyList<ICommand> Commands => _commandsList.AsReadOnly();
