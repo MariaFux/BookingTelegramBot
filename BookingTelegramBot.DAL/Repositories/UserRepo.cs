@@ -11,21 +11,21 @@ namespace BookingTelegramBot.DAL.Repositories
 {
     public class UserRepo : IUserRepo
     {
-        public BookingRoomDbContext context;
+        private readonly BookingRoomDbContext _context;
 
         public UserRepo(BookingRoomDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<User> FindByUserIdAsync(int userId)
         {
-            return await context.Users.FindAsync(userId);
+            return await _context.Users.FindAsync(userId);
         }
 
-        public async Task<User> GetUserAsync()
+        public async Task<User> GetUserAsync(string name)
         {
-            return await context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.TelegramName == "Roman");
+            return await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.TelegramName == name);
         }
     }
 }
