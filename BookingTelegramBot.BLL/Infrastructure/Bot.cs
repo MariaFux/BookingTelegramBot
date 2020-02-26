@@ -38,6 +38,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private async Task<TelegramBotClient> BotInitialization()
         {
             _commandsList.Add(new StartCommand());
+            _commandsList.Add(new AuthCommand());
             //TODO: Add more commands
 
             var botClient = new TelegramBotClient(_settings.Token);
