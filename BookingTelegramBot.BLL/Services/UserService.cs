@@ -11,26 +11,26 @@ namespace BookingTelegramBot.BLL.Services
 {
     public class UserService : IUserService
     {
-        public UserRepo userRepo;
-        private readonly IMapper mapper;
+        private readonly UserRepo _userRepo;
+        private readonly IMapper _mapper;
 
         public UserService(UserRepo userRepo, IMapper mapper)
         {
-            this.userRepo = userRepo;
-            this.mapper = mapper;
+            _userRepo = userRepo;
+            _mapper = mapper;
         }
 
         public async Task<UserDTO> FindByUserIdAsync(int userId)
         {
-            var user = await userRepo.FindByUserIdAsync(userId);
-            var userDTO = mapper.Map<UserDTO>(user);
+            var user = await _userRepo.FindByUserIdAsync(userId);
+            var userDTO = _mapper.Map<UserDTO>(user);
             return userDTO;
         }
 
-        public async Task<UserDTO> GetUserAsync()
+        public async Task<UserDTO> GetUserAsync(string name)
         {
-            var user = await userRepo.GetUserAsync();
-            var userDTO = mapper.Map<UserDTO>(user);
+            var user = await _userRepo.GetUserAsync(name);
+            var userDTO = _mapper.Map<UserDTO>(user);
             return userDTO;
         }
     }
