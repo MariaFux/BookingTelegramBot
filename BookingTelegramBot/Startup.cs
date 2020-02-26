@@ -56,6 +56,8 @@ namespace BookingTelegramBot
                    options.AccessDeniedPath = new PathString("/Account/Login");
                });
 
+            services.Configure<BotSettings>(Configuration.GetSection("BotSettings"));
+
             services.AddSingleton<BotSettings>();
             services.AddSingleton<Bot>();
         }
