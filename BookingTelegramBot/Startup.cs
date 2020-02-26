@@ -55,6 +55,9 @@ namespace BookingTelegramBot
                    options.LoginPath = new PathString("/Account/Login");
                    options.AccessDeniedPath = new PathString("/Account/Login");
                });
+
+            services.AddSingleton<BotSettings>();
+            services.AddSingleton<Bot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,9 +77,7 @@ namespace BookingTelegramBot
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-
-            Bot.GetBotClientAsync().Wait();
+            });            
         }
     }
 }
