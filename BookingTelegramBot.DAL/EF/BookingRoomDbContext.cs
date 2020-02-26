@@ -1,4 +1,5 @@
 ﻿using BookingTelegramBot.DAL.Entities;
+using BookingTelegramBot.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ namespace BookingTelegramBot.DAL.EF
         public DbSet<Room> Rooms { get; set; }
         public DbSet<UserReservation> UsersReservations { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,14 +50,15 @@ namespace BookingTelegramBot.DAL.EF
                 .WithMany(p => p.RoomUserReservations)
                 .HasForeignKey(rp => rp.UserReservationId);
 
-            string adminRoleName = "admin";
-            string userRoleName = "user";
+            modelBuilder.Entity<Role>()
+                .Property(e => e.UserRole)
+                .HasConversion(v => v.ToString(),
+                v => (Roles)Enum.Parse(typeof(Roles), v));
 
             string adminName = "Pavel";
 
-            // добавляем роли
-            Role adminRole = new Role { Id = 1, Name = adminRoleName };
-            Role userRole = new Role { Id = 2, Name = userRoleName };
+            Role adminRole = new Role { Id = 1, UserRole = Roles.admin };
+            Role userRole = new Role { Id = 2, UserRole = Roles.user };
             User adminUser = new User { Id = 1, TelegramName = adminName, RoleId = adminRole.Id };
 
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
