@@ -10,25 +10,41 @@ namespace BookingTelegramBot.BLL.Infrastructure
 {
     public class Bot
     {
-        private static TelegramBotClient botClient;
-        private static List<ICommand> commandsList;
+        private static TelegramBotClient _botClient;
+        private static List<ICommand> _commandsList = new List<ICommand>();
+        private readonly BotSettings _settings;
 
-        public static IReadOnlyList<ICommand> Commands => commandsList.AsReadOnly();
-
-        public static async Task<TelegramBotClient> GetBotClientAsync()
+        public Bot(BotSettings settings)
         {
-            if (botClient != null)
+            _settings = settings;
+        }
+
+        public IReadOnlyList<ICommand> Commands => _commandsList.AsReadOnly();
+
+        public async Task<TelegramBotClient> GetBotClientAsync()
+        {
+            if (_botClient != null)
             {
-                return botClient;
+                return _botClient;
             }
 
-            commandsList = new List<ICommand>();
-            commandsList.Add(new StartCommand());
+            _botClient = await BotInitialization();
+
+            return _botClient;
+            
+        }
+
+        private async Task<TelegramBotClient> BotInitialization()
+        {
+            _commandsList.Add(new StartCommand());
             //TODO: Add more commands
 
-            botClient = new TelegramBotClient(BotSettings.Token);
-            string hook = string.Format(BotSettings.Url, "api/message/postmessage");
+            var botClient = new TelegramBotClient(_settings.Token);
+
+            string hook = $"{_settings.BaseUrl}api/message/postmessage";
+
             await botClient.SetWebhookAsync(hook);
+
             return botClient;
         }
     }

@@ -4,14 +4,16 @@ using BookingTelegramBot.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingTelegramBot.DAL.Migrations
 {
     [DbContext(typeof(BookingRoomDbContext))]
-    partial class BookingRoomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200221142456_RoleMigration")]
+    partial class RoleMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,25 +43,12 @@ namespace BookingTelegramBot.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserRole")
-                        .IsRequired()
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            UserRole = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            UserRole = "user"
-                        });
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("BookingTelegramBot.DAL.Entities.Room", b =>
@@ -120,25 +109,18 @@ namespace BookingTelegramBot.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RoleId")
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TelegramName")
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RoleId = 1,
-                            TelegramName = "Pavel"
-                        });
                 });
 
             modelBuilder.Entity("BookingTelegramBot.DAL.Entities.UserReservation", b =>
@@ -160,6 +142,21 @@ namespace BookingTelegramBot.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UsersReservations");
+                });
+
+            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("BookingTelegramBot.DAL.Entities.RoomParameter", b =>
@@ -192,11 +189,19 @@ namespace BookingTelegramBot.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.User", b =>
+            modelBuilder.Entity("BookingTelegramBot.DAL.Entities.UserRole", b =>
                 {
                     b.HasOne("BookingTelegramBot.DAL.Entities.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookingTelegramBot.DAL.Entities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

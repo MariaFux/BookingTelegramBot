@@ -12,9 +12,18 @@ namespace BookingTelegramBot.Controllers
     [Route("api/message")]
     public class MessageController : Controller
     {
-        [HttpGet]
-        public string Get()
+        private readonly Bot _bot;
+
+        public MessageController(Bot bot)
         {
+            _bot = bot;
+            _bot.GetBotClientAsync().Wait();
+        }
+
+        [HttpGet]
+        [Route("get")]
+        public string Get()
+        {            
             return "Get";
         }
         
@@ -24,9 +33,9 @@ namespace BookingTelegramBot.Controllers
         {
             if (update == null) return Ok();
 
-            var commands = Bot.Commands;
+            var commands = _bot.Commands;
             var message = update.Message;
-            var botClient = await Bot.GetBotClientAsync();
+            var botClient = await _bot.GetBotClientAsync();
 
             foreach (var command in commands)
             {

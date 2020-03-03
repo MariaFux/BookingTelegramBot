@@ -12,42 +12,42 @@ namespace BookingTelegramBot.DAL.Repositories
 {
     public class UserReservationRepo : IUserReservationRepo
     {
-        public BookingRoomDbContext context;
+        private readonly BookingRoomDbContext _context;
 
         public UserReservationRepo(BookingRoomDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<UserReservation>> GetAllAsync()
         {
-            return await context.UsersReservations.ToListAsync();
+            return await _context.UsersReservations.ToListAsync();
         }
 
         public async Task<UserReservation> GetUserReservationByIdAsync(int userReservationId)
         {
-            return await context.UsersReservations.FindAsync(userReservationId);
+            return await _context.UsersReservations.FindAsync(userReservationId);
         }
 
         public void Insert(UserReservation userReservation)
         {
-            context.UsersReservations.Add(userReservation);
+            _context.UsersReservations.Add(userReservation);
         }
 
         public void Update(UserReservation userReservation)
         {
-            context.Entry(userReservation).State = EntityState.Modified;
+            _context.Entry(userReservation).State = EntityState.Modified;
         }
 
         public void Delete(int userReservationId)
         {
-            UserReservation userReservation = context.UsersReservations.Find(userReservationId);
-            context.UsersReservations.Remove(userReservation);
+            UserReservation userReservation = _context.UsersReservations.Find(userReservationId);
+            _context.UsersReservations.Remove(userReservation);
         }
 
         public async Task SaveAsync()
         {
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

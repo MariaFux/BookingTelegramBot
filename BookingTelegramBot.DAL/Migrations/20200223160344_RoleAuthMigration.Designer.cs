@@ -4,14 +4,16 @@ using BookingTelegramBot.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingTelegramBot.DAL.Migrations
 {
     [DbContext(typeof(BookingRoomDbContext))]
-    partial class BookingRoomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200223160344_RoleAuthMigration")]
+    partial class RoleAuthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,24 +43,23 @@ namespace BookingTelegramBot.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserRole")
-                        .IsRequired()
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            UserRole = "admin"
+                            Name = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            UserRole = "user"
+                            Name = "user"
                         });
                 });
 

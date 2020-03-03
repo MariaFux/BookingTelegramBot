@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookingTelegramBot.BLL.DTO;
 using BookingTelegramBot.BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,18 +14,18 @@ namespace BookingTelegramBot.Controllers
     [ApiController]
     public class RoomController : Controller
     {
-        private RoomService roomService;
+        private readonly RoomService _roomService;
 
         public RoomController(RoomService roomService)
         {
-            this.roomService = roomService;
+            _roomService = roomService;
         }
         
         [HttpGet]
         [Route("{id}")]
         public async Task GetRoomByIdAsync(int id)
         {
-            var room = await roomService.GetRoomByIdAsync(id);           
+            var room = await _roomService.GetRoomByIdAsync(id);           
             await Response.WriteAsync(room.Name + " Description: " + room.Description + " Another description: " + room.NumberOfPersons);
         }
 
@@ -32,7 +33,7 @@ namespace BookingTelegramBot.Controllers
         [Route("all")]
         public async Task GetAllAsync()
         {
-            var rooms = await roomService.GetAllWithParametersAsync();
+            var rooms = await _roomService.GetAllWithParametersAsync();
             
             foreach (var room in rooms)
             {
@@ -49,7 +50,7 @@ namespace BookingTelegramBot.Controllers
         [Route("free/{count}")]
         public async Task GetAllFreeAsync(int count)
         {
-            var rooms = await roomService.GetAllFreeAsync();
+            var rooms = await _roomService.GetAllFreeAsync();
             var dateTime = new DateTime(2020, 2, 18, 15, 31, 0, DateTimeKind.Utc);
             int persons = count;
             string find = "";
@@ -73,8 +74,8 @@ namespace BookingTelegramBot.Controllers
         public async Task<IActionResult> InsertAsync()
         {
             RoomDTO roomDTO = new RoomDTO() { Name = "Room 4", Description = "Fourth", NumberOfPersons = 20 };
-            roomService.Insert(roomDTO);
-            await roomService.SaveAsync();
+            _roomService.Insert(roomDTO);
+            await _roomService.SaveAsync();
             return NoContent();
         }
 
@@ -82,9 +83,9 @@ namespace BookingTelegramBot.Controllers
         [Route("delete/{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            roomService.Delete(id);
-            await roomService.SaveAsync();
+            _roomService.Delete(id);
+            await _roomService.SaveAsync();
             return NoContent();
-        }
+        }        
     }
 }
