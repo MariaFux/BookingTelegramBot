@@ -8,6 +8,7 @@ using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
+using BookingTelegramBot.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace BookingTelegramBot
 {
@@ -64,12 +66,16 @@ namespace BookingTelegramBot
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            loggerFactory.AddFile("D:/LogFile.log");
+
+            app.UseLogging();
 
             app.UseRouting();
             app.UseCors();
