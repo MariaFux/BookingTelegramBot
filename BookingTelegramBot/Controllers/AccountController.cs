@@ -26,17 +26,9 @@ namespace BookingTelegramBot.Controllers
 
         [HttpGet]
         [Route("find/{id}")]
-        public async Task FindUserASync(int id)
+        public async Task FindUserAsync(int id)
         {
-            var user = await _userService.FindByUserIdAsync(id);
-            await AuthenticateAsync(user);
-        }
-
-        [HttpGet]
-        [Route("getuser/{name}")]
-        public async Task GetUserAsync(string name)
-        {
-            var user = await _userService.GetUserAsync(name);
+            var user = await _userService.FindByTelegramIdAsync(id);
             await AuthenticateAsync(user);
         }
 
@@ -44,7 +36,6 @@ namespace BookingTelegramBot.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.TelegramName),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.UserRole.ToString())
             };
             
