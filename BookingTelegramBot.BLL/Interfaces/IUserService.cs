@@ -8,7 +8,9 @@ namespace BookingTelegramBot.BLL.Interfaces
 {
     interface IUserService
     {
-        Task<UserDTO> FindByUserIdAsync(int userId);
-        Task<UserDTO> GetUserAsync(string name);
+        Task<IEnumerable<UserDTO>> GetAllAsync();
+        Task<UserDTO> FindByTelegramIdAsync(int telegramId);
+        void Insert(UserDTO userDTO);
+        Task SaveAsync();
     }
 }
