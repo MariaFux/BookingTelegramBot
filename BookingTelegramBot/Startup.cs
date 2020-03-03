@@ -33,7 +33,7 @@ namespace BookingTelegramBot
         public void ConfigureServices(IServiceCollection services)
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
-            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Transient);
+            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Singleton);
             services.AddTransient<BookingRoomDbContext>();
 
             services.AddTransient<ParameterRepo>();
@@ -60,6 +60,7 @@ namespace BookingTelegramBot
 
             services.AddSingleton<BotSettings>();
             services.AddSingleton<Bot>();
+            services.AddSingleton<AuthCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
