@@ -55,11 +55,9 @@ namespace BookingTelegramBot.DAL.EF
                 .HasConversion(v => v.ToString(),
                 v => (Roles)Enum.Parse(typeof(Roles), v));
 
-            string adminName = "Pavel";
-
             Role adminRole = new Role { Id = 1, UserRole = Roles.admin };
             Role userRole = new Role { Id = 2, UserRole = Roles.user };
-            User adminUser = new User { Id = 1, TelegramName = adminName, RoleId = adminRole.Id };
+            User adminUser = new User { Id = 1, RoleId = adminRole.Id };
 
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });

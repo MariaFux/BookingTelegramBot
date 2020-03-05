@@ -6,8 +6,8 @@ namespace BookingTelegramBot.BLL.Infrastructure
 {
     public class BotSettings
     {
-        public string Token { get; set; } = "Token";
-        public string Name { get; set; } = "Name";
-        public string BaseUrl { get; set; } = "Ngrok";
+        public string Token { get; set; }
+        public string Name { get; set; }
+        public string BaseUrl { get; set; }
     }
 }

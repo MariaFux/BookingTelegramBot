@@ -6,6 +6,7 @@ using BookingTelegramBot.BLL.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.Controllers
 {
@@ -31,6 +32,7 @@ namespace BookingTelegramBot.Controllers
         [Route("postmessage")]
         public async Task<OkResult> PostAsync([FromBody]Update update)
         {
+            bool isACommand = false;
             if (update == null) return Ok();
 
             var commands = _bot.Commands;
@@ -42,9 +44,16 @@ namespace BookingTelegramBot.Controllers
                 if (command.Contains(message))
                 {
                     await command.Execute(message, botClient);
+                    isACommand = true;
                     break;
                 }
             }
+
+            if (message?.Type == MessageType.Text && !isACommand)
+            {
+                await botClient.SendTextMessageAsync(message.Chat.Id, message.Text);
+            }
+
             return Ok();
         }
     }

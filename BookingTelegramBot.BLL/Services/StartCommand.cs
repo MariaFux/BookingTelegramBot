@@ -23,7 +23,7 @@ namespace BookingTelegramBot.BLL.Services
         public async Task Execute(Message message, TelegramBotClient client)
         {
             var chatId = message.Chat.Id;
-            await client.SendTextMessageAsync(chatId, "Hi");
+            await client.SendTextMessageAsync(chatId, "Привет! Я помогу тебе забранировать комнату! Чтобы воспользоваться мной введи команду /auth");
         }
     }
 }

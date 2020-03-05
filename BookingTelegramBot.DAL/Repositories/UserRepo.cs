@@ -18,14 +18,24 @@ namespace BookingTelegramBot.DAL.Repositories
             _context = context;
         }
 
-        public async Task<User> FindByUserIdAsync(int userId)
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _context.Users.FindAsync(userId);
+            return await _context.Users.Include(u => u.Role).ToListAsync();
         }
 
-        public async Task<User> GetUserAsync(string name)
+        public async Task<User> FindByTelegramIdAsync(int telegramId)
         {
-            return await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.TelegramName == name);
+            return await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.TelegramId == telegramId);
+        }
+
+        public void Insert(User user)
+        {
+            _context.Users.Add(user);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

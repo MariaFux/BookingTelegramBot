@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookingTelegramBot.BLL.DTO;
 using BookingTelegramBot.BLL.Interfaces;
+using BookingTelegramBot.DAL.Entities;
 using BookingTelegramBot.DAL.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,18 +21,28 @@ namespace BookingTelegramBot.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<UserDTO> FindByUserIdAsync(int userId)
+        public async Task<IEnumerable<UserDTO>> GetAllAsync()
         {
-            var user = await _userRepo.FindByUserIdAsync(userId);
+            var users = await _userRepo.GetAllAsync();
+            var usersDTO = _mapper.Map<IEnumerable<UserDTO>>(users);
+            return usersDTO;
+        }
+
+        public async Task<UserDTO> FindByTelegramIdAsync(int telegramId)
+        {
+            var user = await _userRepo.FindByTelegramIdAsync(telegramId);
             var userDTO = _mapper.Map<UserDTO>(user);
             return userDTO;
         }
 
-        public async Task<UserDTO> GetUserAsync(string name)
+        public void Insert(UserDTO userDTO)
         {
-            var user = await _userRepo.GetUserAsync(name);
-            var userDTO = _mapper.Map<UserDTO>(user);
-            return userDTO;
+            _userRepo.Insert(_mapper.Map<User>(userDTO));
+        }
+
+        public async Task SaveAsync()
+        {
+            await _userRepo.SaveAsync();
         }
     }
 }

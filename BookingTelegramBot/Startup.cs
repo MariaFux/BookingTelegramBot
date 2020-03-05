@@ -8,6 +8,7 @@ using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
+using BookingTelegramBot.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,7 @@ namespace BookingTelegramBot
         public void ConfigureServices(IServiceCollection services)
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
-            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Transient);
+            services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Singleton);
             services.AddTransient<BookingRoomDbContext>();
 
             services.AddTransient<ParameterRepo>();
@@ -57,8 +58,11 @@ namespace BookingTelegramBot
                    options.AccessDeniedPath = new PathString("/Account/Login");
                });
 
+            services.Configure<BotSettings>(Configuration.GetSection("BotSettings"));
+
             services.AddSingleton<BotSettings>();
             services.AddSingleton<Bot>();
+            services.AddSingleton<AuthCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

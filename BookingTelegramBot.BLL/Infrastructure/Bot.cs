@@ -1,5 +1,6 @@
 ﻿using BookingTelegramBot.BLL.Interfaces;
 using BookingTelegramBot.BLL.Services;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,10 +14,12 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private static TelegramBotClient _botClient;
         private static List<ICommand> _commandsList = new List<ICommand>();
         private readonly BotSettings _settings;
+        private readonly AuthCommand _authCommand;
 
-        public Bot(BotSettings settings)
+        public Bot(IOptions<BotSettings> settings, AuthCommand authCommand)
         {
-            _settings = settings;
+            _settings = settings.Value;
+            _authCommand = authCommand;
         }
 
         public IReadOnlyList<ICommand> Commands => _commandsList.AsReadOnly();
@@ -37,6 +40,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private async Task<TelegramBotClient> BotInitialization()
         {
             _commandsList.Add(new StartCommand());
+            _commandsList.Add(_authCommand);
             //TODO: Add more commands
 
             var botClient = new TelegramBotClient(_settings.Token);
