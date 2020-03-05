@@ -22,6 +22,8 @@ namespace BookingTelegramBot.Middleware
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
+            httpContext.Request.EnableBuffering();
+
             logger.LogInformation(await FormatRequest(httpContext.Request));
 
             var originalBodyStream = httpContext.Response.Body;
@@ -39,7 +41,12 @@ namespace BookingTelegramBot.Middleware
 
         private async Task<string> FormatRequest(HttpRequest request)
         {
-            var text = await new StreamReader(request.Body).ReadToEndAsync();
+            var buffer = new byte[Convert.ToInt32(request.ContentLength)];
+            await request.Body.ReadAsync(buffer, 0, buffer.Length);
+
+            var text = Encoding.UTF8.GetString(buffer);
+            request.Body.Seek(0, SeekOrigin.Begin);
+
             return $"Request \n{DateTime.Now} {request.Scheme} {request.Host}{request.Path} {request.QueryString} {text}";
         }
 

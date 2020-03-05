@@ -74,19 +74,18 @@ namespace BookingTelegramBot
                 app.UseDeveloperExceptionPage();
             }
 
-            //loggerFactory.AddFile("D:/LogFile.log");
+            loggerFactory.AddFile("D:/LogFile.log");
+            app.UseLogging();
 
-            //app.UseLogging();
-
-            app.UseRouting();
+            app.UseRouting();            
             app.UseCors();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication();         
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers();                
             });            
         }
     }
