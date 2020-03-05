@@ -63,6 +63,7 @@ namespace BookingTelegramBot
             services.AddSingleton<BotSettings>();
             services.AddSingleton<Bot>();
             services.AddSingleton<AuthCommand>();
+            services.AddSingleton<FreeCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,18 +75,17 @@ namespace BookingTelegramBot
             }
 
             loggerFactory.AddFile("D:/LogFile.log");
-
             app.UseLogging();
 
-            app.UseRouting();
+            app.UseRouting();            
             app.UseCors();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication();         
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers();                
             });            
         }
     }
