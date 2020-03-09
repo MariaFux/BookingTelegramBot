@@ -11,6 +11,7 @@ namespace BookingTelegramBot.BLL.Services
     public class MessageService
     {
         private readonly Bot _bot;
+        public static int Token { get; set; }
 
         public MessageService(Bot bot)
         {
@@ -20,6 +21,7 @@ namespace BookingTelegramBot.BLL.Services
 
         public async Task MessageHandling(Update update)
         {
+            Token = update.Message.From.Id;
             bool isACommand = false;
 
             var commands = _bot.Commands;
