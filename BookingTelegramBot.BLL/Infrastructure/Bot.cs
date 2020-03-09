@@ -16,12 +16,14 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private readonly BotSettings _settings;
         private readonly AuthCommand _authCommand;
         private readonly FreeCommand _freeCommand;
+        private readonly CreateCommand _createCommand;
 
-        public Bot(IOptions<BotSettings> settings, AuthCommand authCommand, FreeCommand freeCommand)
+        public Bot(IOptions<BotSettings> settings, AuthCommand authCommand, FreeCommand freeCommand, CreateCommand createCommand)
         {
             _settings = settings.Value;
             _authCommand = authCommand;
             _freeCommand = freeCommand;
+            _createCommand = createCommand;
         }
 
         public IReadOnlyList<ICommand> Commands => _commandsList.AsReadOnly();
@@ -44,7 +46,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _commandsList.Add(new StartCommand());
             _commandsList.Add(_authCommand);
             _commandsList.Add(_freeCommand);
-
+            _commandsList.Add(_createCommand);
             //TODO: Add more commands
 
             var botClient = new TelegramBotClient(_settings.Token);
