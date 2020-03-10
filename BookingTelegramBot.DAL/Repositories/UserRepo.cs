@@ -33,9 +33,14 @@ namespace BookingTelegramBot.DAL.Repositories
             _context.Users.Add(user);
         }
 
+        public void Update(User user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
+        }
+
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
-        }
+        }        
     }
 }
