@@ -6,6 +6,7 @@ using AutoMapper;
 using BookingTelegramBot.BLL.Infrastructure;
 using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
+using BookingTelegramBot.BLL.Services.Commands;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
 using BookingTelegramBot.Middleware;
@@ -67,6 +68,11 @@ namespace BookingTelegramBot
             services.AddSingleton<AuthCommand>();
             services.AddSingleton<FreeCommand>();
             services.AddSingleton<CreateCommand>();
+            services.AddSingleton<UpdateCommand>();
+            services.AddSingleton<GetAllRoomsCommand>();
+            services.AddSingleton<DeleteCommand>();
+            services.AddSingleton<GetAllUsersCommand>();
+            services.AddSingleton<SetRoleCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
