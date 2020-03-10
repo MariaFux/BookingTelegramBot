@@ -8,7 +8,7 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace BookingTelegramBot.BLL.Services
+namespace BookingTelegramBot.BLL.Services.Commands
 {
     public class FreeCommand : ICommand
     {
@@ -55,7 +55,6 @@ namespace BookingTelegramBot.BLL.Services
                     answer += room.Name + " ";
             }
             await client.SendTextMessageAsync(chatId, $"Подходящие комнаты: {answer}");
-
         }
     }
 }

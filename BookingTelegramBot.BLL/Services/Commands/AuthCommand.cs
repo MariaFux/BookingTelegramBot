@@ -9,7 +9,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace BookingTelegramBot.BLL.Services
+namespace BookingTelegramBot.BLL.Services.Commands
 {
     public class AuthCommand : ICommand
     {
@@ -33,7 +33,7 @@ namespace BookingTelegramBot.BLL.Services
         {
             var answer = @"Теперь вы можете использовать полный перечень команд:
 /free - Позволяет найти свободные комнаты исходя из введенных данных(дата, время, количество человек)
-/all - Список всех доступных комнат
+/getallrooms - Список всех доступных комнат
 /order - Забронировать подходящую комнату";
 
             var chatId = message.Chat.Id;
@@ -44,6 +44,10 @@ namespace BookingTelegramBot.BLL.Services
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
                 answer += "\n/create - Позволяет добавить новую комнату";
+                answer += "\n/update - Позволяет изменить существующую комнату";
+                answer += "\n/delete - Позволяет удалить существующую комнату";
+                answer += "\n/getallusers - Список всех пользователей";
+                answer += "\n/setrole - Позволяет дать существующему пользователю другую роль";
                 await client.SendTextMessageAsync(chatId, answer);
             }
             else if (user != null && user.Role.UserRole.ToString() == "user")
