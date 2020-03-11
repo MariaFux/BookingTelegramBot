@@ -6,6 +6,7 @@ using AutoMapper;
 using BookingTelegramBot.BLL.Infrastructure;
 using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
+using BookingTelegramBot.BLL.Services.Commands;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
 using BookingTelegramBot.Middleware;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Telegram.Bot.Types;
 
 namespace BookingTelegramBot
 {
@@ -50,11 +52,11 @@ namespace BookingTelegramBot
             services.AddTransient<MessageService>();
 
             services.AddControllers().AddNewtonsoftJson();
-            services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));            
-            
+            services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                .AddCookie(options => //CookieAuthenticationOptions
-               {                   
+               {
                    options.LoginPath = new PathString("/Account/Login");
                    options.AccessDeniedPath = new PathString("/Account/Login");
                });
@@ -65,6 +67,12 @@ namespace BookingTelegramBot
             services.AddSingleton<Bot>();
             services.AddSingleton<AuthCommand>();
             services.AddSingleton<FreeCommand>();
+            services.AddSingleton<CreateCommand>();
+            services.AddSingleton<UpdateCommand>();
+            services.AddSingleton<GetAllRoomsCommand>();
+            services.AddSingleton<DeleteCommand>();
+            services.AddSingleton<GetAllUsersCommand>();
+            services.AddSingleton<SetRoleCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,13 +83,14 @@ namespace BookingTelegramBot
                 app.UseDeveloperExceptionPage();
             }
 
-            loggerFactory.AddFile("D:/LogFile.log");
-            app.UseLogging();
+            //loggerFactory.AddFile("D:/LogFile.log");
+            //app.UseLogging();
 
             app.UseRouting();            
             app.UseCors();
 
-            app.UseAuthentication();         
+            app.UseAuth();
+            //app.UseAuthentication();         
             app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>

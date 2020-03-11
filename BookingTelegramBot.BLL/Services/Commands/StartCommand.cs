@@ -7,7 +7,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace BookingTelegramBot.BLL.Services
+namespace BookingTelegramBot.BLL.Services.Commands
 {
     public class StartCommand : ICommand
     {

@@ -40,9 +40,14 @@ namespace BookingTelegramBot.BLL.Services
             _userRepo.Insert(_mapper.Map<User>(userDTO));
         }
 
+        public void Update(UserDTO user)
+        {
+            _userRepo.Update(_mapper.Map<User>(user));
+        }
+
         public async Task SaveAsync()
         {
             await _userRepo.SaveAsync();
-        }
+        }        
     }
 }

@@ -11,6 +11,7 @@ namespace BookingTelegramBot.DAL.Interfaces
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> FindByTelegramIdAsync(int telegramId); 
         void Insert(User user);
+        void Update(User user);
         Task SaveAsync();
     }
 }

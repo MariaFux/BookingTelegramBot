@@ -12,7 +12,7 @@ using Telegram.Bot.Types.Enums;
 namespace BookingTelegramBot.Controllers
 {
     [Route("api/message")]
-    public class MessageController : Controller
+    public class MessageController : ControllerBase
     {
         private readonly MessageService _messageService;
 
