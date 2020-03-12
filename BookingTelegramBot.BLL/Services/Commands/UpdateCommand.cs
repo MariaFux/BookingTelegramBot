@@ -49,14 +49,8 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
                 _roomService.Update(roomToUpdate);
                 await _roomService.SaveAsync();
-                if (numberOfPersons == 1)
-                {
-                    await client.SendTextMessageAsync(chatId, $"Изменена комната: {name}, для {numberOfPersons} человека");
-                }
-                else
-                {
-                    await client.SendTextMessageAsync(chatId, $"Изменена комната: {name}, для {numberOfPersons} человек");
-                }
+
+                await client.SendTextMessageAsync(chatId, $"Изменена комната: {name}");
             }
             else
             {
