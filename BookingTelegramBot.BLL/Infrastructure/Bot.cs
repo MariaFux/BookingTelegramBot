@@ -17,24 +17,24 @@ namespace BookingTelegramBot.BLL.Infrastructure
 
         private readonly AuthCommand _authCommand;
         private readonly FreeCommand _freeCommand;
-        private readonly CreateCommand _createCommand;
-        private readonly UpdateCommand _updateCommand;
+        private readonly CreateRoomCommand _createRoomCommand;
+        private readonly UpdateRoomCommand _updateRoomCommand;
         private readonly GetAllRoomsCommand _getAllRoomsCommand;
-        private readonly DeleteCommand _deleteCommand;
+        private readonly DeleteRoomCommand _deleteRoomCommand;
         private readonly GetAllUsersCommand _getAllUsersCommand;
         private readonly SetRoleCommand _setRoleCommand;
 
-        public Bot(IOptions<BotSettings> settings, AuthCommand authCommand, FreeCommand freeCommand, CreateCommand createCommand, 
-            UpdateCommand updateCommand, GetAllRoomsCommand getAllRoomsCommand, DeleteCommand deleteCommand, GetAllUsersCommand getAllUsersCommand,
+        public Bot(IOptions<BotSettings> settings, AuthCommand authCommand, FreeCommand freeCommand, CreateRoomCommand createRoomCommand, 
+            UpdateRoomCommand updateRoomCommand, GetAllRoomsCommand getAllRoomsCommand, DeleteRoomCommand deleteRoomCommand, GetAllUsersCommand getAllUsersCommand,
             SetRoleCommand setRoleCommand)
         {
             _settings = settings.Value;
             _authCommand = authCommand;
             _freeCommand = freeCommand;
-            _createCommand = createCommand;
-            _updateCommand = updateCommand;
+            _createRoomCommand = createRoomCommand;
+            _updateRoomCommand = updateRoomCommand;
             _getAllRoomsCommand = getAllRoomsCommand;
-            _deleteCommand = deleteCommand;
+            _deleteRoomCommand = deleteRoomCommand;
             _getAllUsersCommand = getAllUsersCommand;
             _setRoleCommand = setRoleCommand;
         }
@@ -59,10 +59,10 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _commandsList.Add(new StartCommand());
             _commandsList.Add(_authCommand);
             _commandsList.Add(_freeCommand);
-            _commandsList.Add(_createCommand);
-            _commandsList.Add(_updateCommand);
+            _commandsList.Add(_createRoomCommand);
+            _commandsList.Add(_updateRoomCommand);
             _commandsList.Add(_getAllRoomsCommand);
-            _commandsList.Add(_deleteCommand);
+            _commandsList.Add(_deleteRoomCommand);
             _commandsList.Add(_getAllUsersCommand);
             _commandsList.Add(_setRoleCommand);
             //TODO: Add more commands

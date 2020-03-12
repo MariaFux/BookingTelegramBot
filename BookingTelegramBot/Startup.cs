@@ -66,10 +66,10 @@ namespace BookingTelegramBot
             services.AddSingleton<Bot>();
             services.AddSingleton<AuthCommand>();
             services.AddSingleton<FreeCommand>();
-            services.AddSingleton<CreateCommand>();
-            services.AddSingleton<UpdateCommand>();
+            services.AddSingleton<CreateRoomCommand>();
+            services.AddSingleton<UpdateRoomCommand>();
             services.AddSingleton<GetAllRoomsCommand>();
-            services.AddSingleton<DeleteCommand>();
+            services.AddSingleton<DeleteRoomCommand>();
             services.AddSingleton<GetAllUsersCommand>();
             services.AddSingleton<SetRoleCommand>();
         }

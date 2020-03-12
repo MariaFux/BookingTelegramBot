@@ -9,18 +9,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.BLL.Services.Commands
 {
-    public class DeleteCommand : ICommand
+    public class DeleteRoomCommand : ICommand
     {
         private readonly RoomService _roomService;
         private readonly UserService _userService;
 
-        public DeleteCommand(RoomService roomService, UserService userService)
+        public DeleteRoomCommand(RoomService roomService, UserService userService)
         {
             _roomService = roomService;
             _userService = userService;
         }
 
-        public string Name => @"/delete";
+        public string Name => @"/deleteroom";
 
         public bool Contains(Message message)
         {
