@@ -4,6 +4,7 @@ using BookingTelegramBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,12 +36,21 @@ namespace BookingTelegramBot.DAL.Repositories
 
         public void Update(User user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            var attached = _context.Users.Local.FirstOrDefault(x => x.Id == user.Id);
+
+            if(attached != null)
+            {
+                _context.Entry(attached).CurrentValues.SetValues(user);
+            }
+            else
+            {
+                _context.Entry(user).State = EntityState.Modified;
+            }
         }
 
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
-        }        
+        }
     }
 }
