@@ -23,10 +23,15 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private readonly DeleteRoomCommand _deleteRoomCommand;
         private readonly GetAllUsersCommand _getAllUsersCommand;
         private readonly SetRoleCommand _setRoleCommand;
+        private readonly CreateParameterCommand _createParameterCommand;
+        private readonly UpdateParameterCommand _updateParameterCommand;
+        private readonly GetAllParametersCommand _getAllParametersCommand;
+        private readonly DeleteParameterCommand _deleteParameterCommand;
 
         public Bot(IOptions<BotSettings> settings, AuthCommand authCommand, FreeCommand freeCommand, CreateRoomCommand createRoomCommand, 
             UpdateRoomCommand updateRoomCommand, GetAllRoomsCommand getAllRoomsCommand, DeleteRoomCommand deleteRoomCommand, GetAllUsersCommand getAllUsersCommand,
-            SetRoleCommand setRoleCommand)
+            SetRoleCommand setRoleCommand, CreateParameterCommand createParameterCommand, UpdateParameterCommand updateParameterCommand, 
+            GetAllParametersCommand getAllParametersCommand, DeleteParameterCommand deleteParameterCommand)
         {
             _settings = settings.Value;
             _authCommand = authCommand;
@@ -37,6 +42,10 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _deleteRoomCommand = deleteRoomCommand;
             _getAllUsersCommand = getAllUsersCommand;
             _setRoleCommand = setRoleCommand;
+            _createParameterCommand = createParameterCommand;
+            _updateParameterCommand = updateParameterCommand;
+            _getAllParametersCommand = getAllParametersCommand;
+            _deleteParameterCommand = deleteParameterCommand;
         }
 
         public IReadOnlyList<ICommand> Commands => _commandsList.AsReadOnly();
@@ -65,6 +74,10 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _commandsList.Add(_deleteRoomCommand);
             _commandsList.Add(_getAllUsersCommand);
             _commandsList.Add(_setRoleCommand);
+            _commandsList.Add(_createParameterCommand);
+            _commandsList.Add(_updateParameterCommand);
+            _commandsList.Add(_getAllParametersCommand);
+            _commandsList.Add(_deleteParameterCommand);
             //TODO: Add more commands
 
             var botClient = new TelegramBotClient(_settings.Token);

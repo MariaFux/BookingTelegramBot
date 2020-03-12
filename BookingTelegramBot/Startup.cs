@@ -72,6 +72,10 @@ namespace BookingTelegramBot
             services.AddSingleton<DeleteRoomCommand>();
             services.AddSingleton<GetAllUsersCommand>();
             services.AddSingleton<SetRoleCommand>();
+            services.AddSingleton<CreateParameterCommand>();
+            services.AddSingleton<UpdateParameterCommand>();
+            services.AddSingleton<DeleteParameterCommand>();
+            services.AddSingleton<GetAllParametersCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
