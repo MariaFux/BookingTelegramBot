@@ -43,16 +43,11 @@ namespace BookingTelegramBot.BLL.Services.Commands
                 var userTelegramId = Convert.ToInt32(userDescription[3]);
 
                 var userToUpdate = new UserDTO() { Id = id, RoleId = roleId, TelegramId = userTelegramId};
+
                 _userService.Update(userToUpdate);
                 await _userService.SaveAsync();
-                if (roleId == 1)
-                {
-                    await client.SendTextMessageAsync(chatId, $"Пользователь {userTelegramId} теперь admin");
-                }
-                else
-                {
-                    await client.SendTextMessageAsync(chatId, $"Пользователь {userTelegramId} теперь user");
-                }
+
+                await client.SendTextMessageAsync(chatId, $"Пользователь успешно изменен!");
             }
             else
             {
