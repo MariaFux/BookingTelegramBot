@@ -38,7 +38,6 @@ namespace BookingTelegramBot
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
             services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Singleton);
-            services.AddTransient<BookingRoomDbContext>();
 
             services.AddTransient<ParameterRepo>();
             services.AddTransient<RoomRepo>();
