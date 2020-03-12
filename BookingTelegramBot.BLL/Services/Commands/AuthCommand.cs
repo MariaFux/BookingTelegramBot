@@ -48,7 +48,11 @@ namespace BookingTelegramBot.BLL.Services.Commands
                 answer += "\n/updateroom - Позволяет изменить существующую комнату";
                 answer += "\n/deleteroom - Позволяет удалить существующую комнату";
                 answer += "\n/getallusers - Список всех пользователей";
-                answer += "\n/setrole - Позволяет изменить роль пользователя";                
+                answer += "\n/setrole - Позволяет изменить роль пользователя";
+                answer += "\n/createparameter - Позволяет добавить новый параметер";
+                answer += "\n/updateparameter - Позволяет изменить имеющийся параметер";
+                answer += "\n/getallparameters - Список всех параметров";
+                answer += "\n/deleteparameter - Позволяет удалить параметер";
                 await client.SendTextMessageAsync(chatId, answer, ParseMode.Markdown);
             }
             else if (user != null && user.Role.UserRole.ToString() == "user")
