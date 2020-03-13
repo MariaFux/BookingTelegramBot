@@ -22,11 +22,12 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private readonly UpdateParameterCommand _updateParameterCommand;
         private readonly GetAllParametersCommand _getAllParametersCommand;
         private readonly DeleteParameterCommand _deleteParameterCommand;
+        private readonly AllRoomsParametersCommand _allRoomsParametersCommand;
 
         public CommandsList(AuthCommand authCommand, FreeCommand freeCommand, CreateRoomCommand createRoomCommand,
             UpdateRoomCommand updateRoomCommand, GetAllRoomsCommand getAllRoomsCommand, DeleteRoomCommand deleteRoomCommand, GetAllUsersCommand getAllUsersCommand,
             SetRoleCommand setRoleCommand, CreateParameterCommand createParameterCommand, UpdateParameterCommand updateParameterCommand,
-            GetAllParametersCommand getAllParametersCommand, DeleteParameterCommand deleteParameterCommand)
+            GetAllParametersCommand getAllParametersCommand, DeleteParameterCommand deleteParameterCommand, AllRoomsParametersCommand allRoomsParametersCommand)
         {
             _authCommand = authCommand;
             _freeCommand = freeCommand;
@@ -40,6 +41,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _updateParameterCommand = updateParameterCommand;
             _getAllParametersCommand = getAllParametersCommand;
             _deleteParameterCommand = deleteParameterCommand;
+            _allRoomsParametersCommand = allRoomsParametersCommand;
             Initialize();
         }        
 
@@ -67,6 +69,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _commandsList.Add(_updateParameterCommand);
             _commandsList.Add(_getAllParametersCommand);
             _commandsList.Add(_deleteParameterCommand);
+            _commandsList.Add(_allRoomsParametersCommand);
         }
     }
 }

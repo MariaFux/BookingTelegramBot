@@ -76,6 +76,7 @@ namespace BookingTelegramBot
             services.AddSingleton<UpdateParameterCommand>();
             services.AddSingleton<DeleteParameterCommand>();
             services.AddSingleton<GetAllParametersCommand>();
+            services.AddSingleton<AllRoomsParametersCommand>();
             services.AddSingleton<CommandsList>();
         }
 
@@ -93,8 +94,7 @@ namespace BookingTelegramBot
             app.UseRouting();            
             app.UseCors();
 
-            app.UseAuth();
-            //app.UseAuthentication();         
+            app.UseAuth();        
             app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
