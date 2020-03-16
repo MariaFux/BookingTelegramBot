@@ -80,6 +80,7 @@ namespace BookingTelegramBot
             services.AddSingleton<GetAllParametersCommand>();
             services.AddSingleton<AllRoomsParametersCommand>();
             services.AddSingleton<AddRoomsParametersCommand>();
+            services.AddSingleton<DeleteRoomParameterCommand>();
             services.AddSingleton<CommandsList>();
         }
 
