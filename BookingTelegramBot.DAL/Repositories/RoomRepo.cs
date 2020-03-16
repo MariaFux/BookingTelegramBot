@@ -36,8 +36,17 @@ namespace BookingTelegramBot.DAL.Repositories
 
         public void Update(Room room)
         {
-            _context.Entry(room).State = EntityState.Modified;
-        }
+            var attached = _context.Rooms.Local.FirstOrDefault(x => x.Id == room.Id);
+
+            if (attached != null)
+            {
+                _context.Entry(attached).CurrentValues.SetValues(room);
+            }
+            else
+            {
+                _context.Entry(room).State = EntityState.Modified;
+            }
+        }        
 
         public void Delete(int roomId)
         {

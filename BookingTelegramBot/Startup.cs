@@ -38,18 +38,19 @@ namespace BookingTelegramBot
         {
             var ConnectionString = Configuration.GetConnectionString("DbConstr");
             services.AddDbContext<BookingRoomDbContext>(options => options.UseSqlServer(ConnectionString), ServiceLifetime.Singleton);
-            services.AddTransient<BookingRoomDbContext>();
 
             services.AddTransient<ParameterRepo>();
             services.AddTransient<RoomRepo>();
             services.AddTransient<UserReservationRepo>();
             services.AddTransient<UserRepo>();
+            services.AddTransient<RoomParameterRepo>();
 
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
             services.AddTransient<UserReservationService>();
             services.AddTransient<UserService>();
             services.AddTransient<MessageService>();
+            services.AddTransient<RoomParameterService>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));
@@ -67,12 +68,20 @@ namespace BookingTelegramBot
             services.AddSingleton<Bot>();
             services.AddSingleton<AuthCommand>();
             services.AddSingleton<FreeCommand>();
-            services.AddSingleton<CreateCommand>();
-            services.AddSingleton<UpdateCommand>();
+            services.AddSingleton<CreateRoomCommand>();
+            services.AddSingleton<UpdateRoomCommand>();
             services.AddSingleton<GetAllRoomsCommand>();
-            services.AddSingleton<DeleteCommand>();
+            services.AddSingleton<DeleteRoomCommand>();
             services.AddSingleton<GetAllUsersCommand>();
             services.AddSingleton<SetRoleCommand>();
+            services.AddSingleton<CreateParameterCommand>();
+            services.AddSingleton<UpdateParameterCommand>();
+            services.AddSingleton<DeleteParameterCommand>();
+            services.AddSingleton<GetAllParametersCommand>();
+            services.AddSingleton<AllRoomsParametersCommand>();
+            services.AddSingleton<AddRoomsParametersCommand>();
+            services.AddSingleton<DeleteRoomParameterCommand>();
+            services.AddSingleton<CommandsList>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,8 +98,7 @@ namespace BookingTelegramBot
             app.UseRouting();            
             app.UseCors();
 
-            app.UseAuth();
-            //app.UseAuthentication();         
+            app.UseAuth();        
             app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>

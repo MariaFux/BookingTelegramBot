@@ -1,5 +1,4 @@
-﻿using BookingTelegramBot.BLL.DTO;
-using BookingTelegramBot.BLL.Interfaces;
+﻿using BookingTelegramBot.BLL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,16 +9,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.BLL.Services.Commands
 {
-    public class SetRoleCommand : ICommand
+    public class GetAllParametersCommand : ICommand
     {
+        private readonly ParameterService _parameterService;
         private readonly UserService _userService;
 
-        public SetRoleCommand(UserService userService)
+        public GetAllParametersCommand(ParameterService parameterService, UserService userService)
         {
+            _parameterService = parameterService;
             _userService = userService;
         }
 
-        public string Name => @"/setrole";
+        public string Name => @"/getallparameters";
 
         public bool Contains(Message message)
         {
@@ -34,20 +35,17 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
             var telegramId = message.From.Id;
             var user = await _userService.FindByTelegramIdAsync(telegramId);
+
+            var answer = "";
+
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] userDescription = message.Text.Split(' ');
-
-                var id = Convert.ToInt32(userDescription[1]);
-                var roleId = Convert.ToInt32(userDescription[2]);
-                var userTelegramId = Convert.ToInt32(userDescription[3]);
-
-                var userToUpdate = new UserDTO() { Id = id, RoleId = roleId, TelegramId = userTelegramId};
-
-                _userService.Update(userToUpdate);
-                await _userService.SaveAsync();
-
-                await client.SendTextMessageAsync(chatId, $"Пользователь успешно изменен!");
+                var parameters = await _parameterService.GetAllAsync();
+                foreach (var parameter in parameters)
+                {
+                    answer += $"\nId: {parameter.Id}, {parameter.NameOfParameter}";
+                }
+                await client.SendTextMessageAsync(chatId, $"Список параметров:\n {answer}");
             }
             else
             {

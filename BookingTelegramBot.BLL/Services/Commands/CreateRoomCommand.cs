@@ -10,16 +10,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.BLL.Services.Commands
 {
-    public class SetRoleCommand : ICommand
+    public class CreateRoomCommand : ICommand
     {
+        private readonly RoomService _roomService;
         private readonly UserService _userService;
 
-        public SetRoleCommand(UserService userService)
+        public CreateRoomCommand(RoomService roomService, UserService userService)
         {
+            _roomService = roomService;
             _userService = userService;
         }
 
-        public string Name => @"/setrole";
+        public string Name => @"/createroom";
 
         public bool Contains(Message message)
         {
@@ -36,23 +38,29 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] userDescription = message.Text.Split(' ');
+                string[] roomDescription = message.Text.Split(',');
 
-                var id = Convert.ToInt32(userDescription[1]);
-                var roleId = Convert.ToInt32(userDescription[2]);
-                var userTelegramId = Convert.ToInt32(userDescription[3]);
+                var name = roomDescription[1];
+                var description = roomDescription[2];
+                var numberOfPersons = Convert.ToInt32(roomDescription[3]);
 
-                var userToUpdate = new UserDTO() { Id = id, RoleId = roleId, TelegramId = userTelegramId};
+                var roomToAdd = new RoomDTO() { Name = name, Description = description, NumberOfPersons = numberOfPersons };
 
-                _userService.Update(userToUpdate);
-                await _userService.SaveAsync();
-
-                await client.SendTextMessageAsync(chatId, $"Пользователь успешно изменен!");
+                _roomService.Insert(roomToAdd);
+                await _roomService.SaveAsync();
+                if (numberOfPersons == 1)
+                {
+                    await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человека");
+                }
+                else
+                {
+                    await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человек");
+                }
             }
             else
             {
                 await client.SendTextMessageAsync(chatId, $"Вам не хватает доступа чтобы воспользоваться этой коммандой");
-            }
+            }        
         }
     }
 }

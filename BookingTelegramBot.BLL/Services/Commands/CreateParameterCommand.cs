@@ -10,16 +10,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.BLL.Services.Commands
 {
-    public class SetRoleCommand : ICommand
+    public class CreateParameterCommand : ICommand
     {
+        private readonly ParameterService _parameterService;
         private readonly UserService _userService;
 
-        public SetRoleCommand(UserService userService)
+        public CreateParameterCommand(ParameterService parameterService, UserService userService)
         {
+            _parameterService = parameterService;
             _userService = userService;
         }
 
-        public string Name => @"/setrole";
+        public string Name => @"/createparameter";
 
         public bool Contains(Message message)
         {
@@ -36,18 +38,16 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] userDescription = message.Text.Split(' ');
+                string[] parameterName = message.Text.Split(' ');
 
-                var id = Convert.ToInt32(userDescription[1]);
-                var roleId = Convert.ToInt32(userDescription[2]);
-                var userTelegramId = Convert.ToInt32(userDescription[3]);
+                var name = parameterName[1];
 
-                var userToUpdate = new UserDTO() { Id = id, RoleId = roleId, TelegramId = userTelegramId};
+                var parameterToAdd = new ParameterDTO() { NameOfParameter = name };
 
-                _userService.Update(userToUpdate);
-                await _userService.SaveAsync();
+                _parameterService.Insert(parameterToAdd);
+                await _parameterService.SaveAsync();
 
-                await client.SendTextMessageAsync(chatId, $"Пользователь успешно изменен!");
+                await client.SendTextMessageAsync(chatId, $"Добавлен параметер {name}");
             }
             else
             {

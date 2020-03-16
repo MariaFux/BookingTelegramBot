@@ -10,18 +10,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.BLL.Services.Commands
 {
-    public class CreateCommand : ICommand
+    public class UpdateParameterCommand : ICommand
     {
-        private readonly RoomService _roomService;
+        private readonly ParameterService _parameterService;
         private readonly UserService _userService;
 
-        public CreateCommand(RoomService roomService, UserService userService)
+        public UpdateParameterCommand(ParameterService parameterService, UserService userService)
         {
-            _roomService = roomService;
+            _parameterService = parameterService;
             _userService = userService;
         }
 
-        public string Name => @"/create";
+        public string Name => @"/updateparameter";
 
         public bool Contains(Message message)
         {
@@ -38,29 +38,22 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] roomDescription = message.Text.Split(',');
+                string[] parameterDescription = message.Text.Split(' ');
 
-                var name = roomDescription[1];
-                var description = roomDescription[2];
-                var numberOfPersons = Convert.ToInt32(roomDescription[3]);
+                var id = Convert.ToInt32(parameterDescription[1]);
+                var name = parameterDescription[2];
 
-                var roomToAdd = new RoomDTO() { Name = name, Description = description, NumberOfPersons = numberOfPersons };
+                var parameterToUpdate = new ParameterDTO() { Id = id, NameOfParameter = name };
 
-                _roomService.Insert(roomToAdd);
-                await _roomService.SaveAsync();
-                if (numberOfPersons == 1)
-                {
-                    await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человека");
-                }
-                else
-                {
-                    await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человек");
-                }
+                _parameterService.Update(parameterToUpdate);
+                await _parameterService.SaveAsync();
+
+                await client.SendTextMessageAsync(chatId, $"Изменен параметер: {name}");
             }
             else
             {
                 await client.SendTextMessageAsync(chatId, $"Вам не хватает доступа чтобы воспользоваться этой коммандой");
-            }        
+            }
         }
     }
 }

@@ -35,7 +35,16 @@ namespace BookingTelegramBot.DAL.Repositories
 
         public void Update(Parameter parameter)
         {
-            _context.Entry(parameter).State = EntityState.Modified;
+            var attached = _context.Parameters.Local.FirstOrDefault(x => x.Id == parameter.Id);
+
+            if (attached != null)
+            {
+                _context.Entry(attached).CurrentValues.SetValues(parameter);
+            }
+            else
+            {
+                _context.Entry(parameter).State = EntityState.Modified;
+            }
         }
 
         public void Delete(int parameterId)

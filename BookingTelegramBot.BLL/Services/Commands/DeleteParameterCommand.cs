@@ -9,18 +9,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BookingTelegramBot.BLL.Services.Commands
 {
-    public class DeleteCommand : ICommand
+    public class DeleteParameterCommand : ICommand
     {
-        private readonly RoomService _roomService;
+        private readonly ParameterService _parameterService;
         private readonly UserService _userService;
 
-        public DeleteCommand(RoomService roomService, UserService userService)
+        public DeleteParameterCommand(ParameterService parameterService, UserService userService)
         {
-            _roomService = roomService;
+            _parameterService = parameterService;
             _userService = userService;
         }
 
-        public string Name => @"/delete";
+        public string Name => @"/deleteparameter";
 
         public bool Contains(Message message)
         {
@@ -37,12 +37,12 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] roomId = message.Text.Split(' ');
+                string[] parameterId = message.Text.Split(' ');
 
-                var id = Convert.ToInt32(roomId[1]);
+                var id = Convert.ToInt32(parameterId[1]);
 
-                _roomService.Delete(id);
-                await _roomService.SaveAsync();
+                _parameterService.Delete(id);
+                await _parameterService.SaveAsync();
                 await client.SendTextMessageAsync(chatId, $"Удаление прошло успешно!");
             }
             else
