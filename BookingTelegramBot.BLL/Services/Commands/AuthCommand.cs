@@ -54,6 +54,7 @@ namespace BookingTelegramBot.BLL.Services.Commands
                 answer += "\n/getallparameters - Список всех параметров";
                 answer += "\n/deleteparameter - Позволяет удалить параметер";
                 answer += "\n/allroomsparameters - Список всех комнат с параметрами";
+                answer += "\n/addroomsparameters - Позволяет добавить параметры к комнате";
                 await client.SendTextMessageAsync(chatId, answer, ParseMode.Markdown);
             }
             else if (user != null && user.Role.UserRole.ToString() == "user")
