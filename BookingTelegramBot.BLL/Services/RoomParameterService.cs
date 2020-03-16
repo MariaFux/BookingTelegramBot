@@ -19,11 +19,16 @@ namespace BookingTelegramBot.BLL.Services
         {
             _roomParameterRepo = roomParameterRepo;
             _mapper = mapper;
-        }
+        }        
 
         public void Insert(RoomParameterDTO roomParameterDTO)
         {
             _roomParameterRepo.Insert(_mapper.Map<RoomParameter>(roomParameterDTO));
+        }
+
+        public void Delete(RoomParameterDTO roomParameterDTO)
+        {
+            _roomParameterRepo.Delete(_mapper.Map<RoomParameter>(roomParameterDTO));
         }
 
         public async Task SaveAsync()
