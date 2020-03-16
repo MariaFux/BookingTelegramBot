@@ -13,9 +13,9 @@ namespace BookingTelegramBot.BLL.Mapper
         {
             CreateMap<Room, RoomDTO>().ReverseMap();
             CreateMap<Parameter, ParameterDTO>().ReverseMap();
-            CreateMap<UserReservation, UserReservationDTO>();
-            CreateMap<RoomUserReservation, RoomUserReservationDTO>();
-            CreateMap<RoomParameter, RoomParameterDTO>();
+            CreateMap<UserReservation, UserReservationDTO>().ReverseMap();
+            CreateMap<RoomUserReservation, RoomUserReservationDTO>().ReverseMap();
+            CreateMap<RoomParameter, RoomParameterDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Role, RoleDTO>().ReverseMap();
         }
