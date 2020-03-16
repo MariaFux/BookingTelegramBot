@@ -9,6 +9,7 @@ namespace BookingTelegramBot.DAL.Interfaces
     interface IRoomParameterRepo
     {
         void Insert(RoomParameter roomParameter);
-        Task SaveAsync();
+        void Delete(RoomParameter roomParameter);
+        Task SaveAsync();        
     }
 }

@@ -15,11 +15,16 @@ namespace BookingTelegramBot.DAL.Repositories
         public RoomParameterRepo(BookingRoomDbContext context)
         {
             _context = context;
-        }
+        }        
 
         public void Insert(RoomParameter roomParameter)
         {
             _context.RoomsParameters.Add(roomParameter);
+        }
+
+        public void Delete(RoomParameter roomParameter)
+        {
+            _context.RoomsParameters.Remove(roomParameter);
         }
 
         public async Task SaveAsync()
