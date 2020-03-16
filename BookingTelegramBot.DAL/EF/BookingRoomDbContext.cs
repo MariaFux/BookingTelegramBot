@@ -21,6 +21,7 @@ namespace BookingTelegramBot.DAL.EF
         public DbSet<Room> Rooms { get; set; }
         public DbSet<UserReservation> UsersReservations { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<RoomParameter> RoomsParameters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
