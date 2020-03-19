@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace BookingTelegramBot.Tests
+namespace BookingTelegramBot.Tests.BookingTelegramBot.DAL.Repositories
 {
     public class RoomRepoTests
     {

@@ -2,6 +2,7 @@
 using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
+using BookingTelegramBot.Tests.BookingTelegramBot.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

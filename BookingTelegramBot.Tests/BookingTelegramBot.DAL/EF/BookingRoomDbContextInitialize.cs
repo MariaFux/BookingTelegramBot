@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BookingTelegramBot.Tests
+namespace BookingTelegramBot.Tests.BookingTelegramBot.DAL.EF
 {
     public class BookingRoomDbContextInitialize
     {

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace BookingTelegramBot.Tests
+namespace BookingTelegramBot.Tests.BookingTelegramBot.BLL.Services
 {
     public class RoomServiceTests
     {
