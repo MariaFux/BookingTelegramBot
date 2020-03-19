@@ -1,7 +1,6 @@
 ﻿using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Entities;
 using BookingTelegramBot.DAL.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,29 +11,24 @@ namespace BookingTelegramBot.Tests
 {
     public class RoomRepoTests
     {
+        private BookingRoomDbContext _context;
+
+        public RoomRepoTests(BookingRoomDbContext context)
+        {
+            _context = context;
+        }
+
         [Fact]
         public async Task GetRoomByIdAsync()
         {
-            var options = new DbContextOptionsBuilder<BookingRoomDbContext>().UseInMemoryDatabase(databaseName: "BookingRoom").Options;
-            using (var context = new BookingRoomDbContext(options))
-            {
-                context.Rooms.Add(new Room() { Id = 1, Name = "Room 1", Description = "First", NumberOfPersons = 10 });
-                context.Rooms.Add(new Room() { Id = 2, Name = "Room 2", Description = "Second", NumberOfPersons = 12 });
-                context.Rooms.Add(new Room() { Id = 3, Name = "Room 3", Description = "Third", NumberOfPersons = 15 });
-                context.SaveChanges();
-            }
-
-            using (var context = new BookingRoomDbContext(options))
-            {
-                var repo = new RoomRepo(context);
+                var repo = new RoomRepo(_context);
                 var result = await repo.GetRoomByIdAsync(1);
 
-                var mockRoom = new Room() { Id = 1, Name = "Room 1", Description = "First", NumberOfPersons = 10 };
+                var expectedRoom = new Room() { Id = 1, Name = "Room 1", Description = "First", NumberOfPersons = 10 };
 
-                Assert.Equal(mockRoom.Name, result.Name);
-                Assert.Equal(mockRoom.NumberOfPersons, result.NumberOfPersons);
-                Assert.Equal(mockRoom.RoomParameters.Count, result.RoomParameters.Count);
-            }    
+                Assert.Equal(expectedRoom.Name, result.Name);
+                Assert.Equal(expectedRoom.NumberOfPersons, result.NumberOfPersons);
+                Assert.Equal(expectedRoom.RoomParameters.Count, result.RoomParameters.Count); 
         }
     }
 }
