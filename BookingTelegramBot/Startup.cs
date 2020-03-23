@@ -44,6 +44,7 @@ namespace BookingTelegramBot
             services.AddTransient<UserReservationRepo>();
             services.AddTransient<UserRepo>();
             services.AddTransient<RoomParameterRepo>();
+            services.AddTransient<RoomUserReservationRepo>();
 
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
@@ -51,6 +52,7 @@ namespace BookingTelegramBot
             services.AddTransient<UserService>();
             services.AddTransient<MessageService>();
             services.AddTransient<RoomParameterService>();
+            services.AddTransient<RoomUserReservationService>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));
@@ -81,6 +83,7 @@ namespace BookingTelegramBot
             services.AddSingleton<AllRoomsParametersCommand>();
             services.AddSingleton<AddRoomsParametersCommand>();
             services.AddSingleton<DeleteRoomParameterCommand>();
+            services.AddSingleton<BookARoomCommand>();
             services.AddSingleton<CommandsList>();
         }
 
