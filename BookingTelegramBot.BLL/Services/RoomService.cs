@@ -68,5 +68,10 @@ namespace BookingTelegramBot.BLL.Services
             var roomFreeDTO = _mapper.Map<IEnumerable<RoomDTO>>(roomFree);
             return roomFreeDTO;
         }
+
+        public int GetRoomIdByName(string roomName)
+        {
+            return _roomRepo.GetRoomIdByName(roomName);
+        }
     }
 }
