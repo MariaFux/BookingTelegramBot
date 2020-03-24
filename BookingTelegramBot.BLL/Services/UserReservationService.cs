@@ -54,5 +54,12 @@ namespace BookingTelegramBot.BLL.Services
         {
             await _userReservationRepo.SaveAsync();
         }
+
+        public async Task<IEnumerable<UserReservationDTO>> GetReservationByTelegramIdAsync(int telegramId)
+        {
+            var reservations = await _userReservationRepo.GetReservationByTelegramIdAsync(telegramId);
+            var reservationsDTO = _mapper.Map<IEnumerable<UserReservationDTO>>(reservations);
+            return reservationsDTO;
+        }
     }
 }
