@@ -49,5 +49,11 @@ namespace BookingTelegramBot.DAL.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<UserReservation>> GetReservationByTelegramIdAsync(int telegramId)
+        {           
+            return await _context.UsersReservations.Where(p => p.TelegramId == telegramId)
+                .Include(p => p.RoomUserReservations).ThenInclude(p => p.Room).ToListAsync();
+        }
     }
 }
