@@ -16,5 +16,6 @@ namespace BookingTelegramBot.DAL.Interfaces
         Task SaveAsync();
         Task<IEnumerable<Room>> GetAllWithParametersAsync();
         Task<IEnumerable<Room>> GetAllFreeAsync();
+        int GetRoomIdByName(string roomName);
     }
 }

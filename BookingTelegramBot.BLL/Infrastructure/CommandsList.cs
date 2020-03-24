@@ -25,12 +25,15 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private readonly AllRoomsParametersCommand _allRoomsParametersCommand;
         private readonly AddRoomsParametersCommand _addRoomsParametersCommand;
         private readonly DeleteRoomParameterCommand _deleteRoomParameterCommand;
+        private readonly BookARoomCommand _bookARoomCommand;
+        private readonly MyReservationsCommand _myReservationsCommand;
 
         public CommandsList(AuthCommand authCommand, FreeCommand freeCommand, CreateRoomCommand createRoomCommand,
             UpdateRoomCommand updateRoomCommand, GetAllRoomsCommand getAllRoomsCommand, DeleteRoomCommand deleteRoomCommand, GetAllUsersCommand getAllUsersCommand,
             SetRoleCommand setRoleCommand, CreateParameterCommand createParameterCommand, UpdateParameterCommand updateParameterCommand,
             GetAllParametersCommand getAllParametersCommand, DeleteParameterCommand deleteParameterCommand, AllRoomsParametersCommand allRoomsParametersCommand,
-            AddRoomsParametersCommand addRoomsParametersCommand, DeleteRoomParameterCommand deleteRoomParameterCommand)
+            AddRoomsParametersCommand addRoomsParametersCommand, DeleteRoomParameterCommand deleteRoomParameterCommand, BookARoomCommand bookARoomCommand,
+            MyReservationsCommand myReservationsCommand)
         {
             _authCommand = authCommand;
             _freeCommand = freeCommand;
@@ -47,6 +50,8 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _allRoomsParametersCommand = allRoomsParametersCommand;
             _addRoomsParametersCommand = addRoomsParametersCommand;
             _deleteRoomParameterCommand = deleteRoomParameterCommand;
+            _bookARoomCommand = bookARoomCommand;
+            _myReservationsCommand = myReservationsCommand;
             Initialize();
         }        
 
@@ -77,6 +82,8 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _commandsList.Add(_allRoomsParametersCommand);
             _commandsList.Add(_addRoomsParametersCommand);
             _commandsList.Add(_deleteRoomParameterCommand);
+            _commandsList.Add(_bookARoomCommand);
+            _commandsList.Add(_myReservationsCommand);
         }
     }
 }

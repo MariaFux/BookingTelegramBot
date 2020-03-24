@@ -68,5 +68,11 @@ namespace BookingTelegramBot.DAL.Repositories
         {
             return await _context.Rooms.Include(p => p.RoomUserReservations).ThenInclude(p => p.UserReservation).ToListAsync();
         }
+
+        public int GetRoomIdByName(string roomName)
+        {
+            Room room = _context.Rooms.FirstOrDefault(x => x.Name == roomName);
+            return room.Id;
+        }
     }
 }

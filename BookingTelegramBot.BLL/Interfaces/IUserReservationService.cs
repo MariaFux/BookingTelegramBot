@@ -14,5 +14,6 @@ namespace BookingTelegramBot.BLL.Interfaces
         void Update(UserReservationDTO userReservation);
         void Delete(int userReservationId);
         Task SaveAsync();
+        Task<IEnumerable<UserReservationDTO>> GetReservationByTelegramIdAsync(int telegramId);
     }
 }
