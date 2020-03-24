@@ -39,36 +39,28 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var userName = message.From.FirstName;
             var telegramId = message.From.Id;
 
-            var user = await _userService.FindByTelegramIdAsync(telegramId);
-            if (user != null && user.Role.UserRole.ToString() == "admin")
+            string[] roomUserReservation = message.Text.Split(',');
+
+            var roomName = roomUserReservation[1];
+            DateTime dateTimeFrom = Convert.ToDateTime(roomUserReservation[2] + " " + roomUserReservation[3]);
+            DateTime dateTimeTo = Convert.ToDateTime(roomUserReservation[2] + " " + roomUserReservation[4]);
+
+            var userReservationToInsert = new UserReservationDTO() { Name = userName, TelegramId = telegramId, DateTimeFrom = dateTimeFrom, DateTimeTo = dateTimeTo };
+
+            var roomId = _roomService.GetRoomIdByName(roomName);
+
+            userReservationToInsert.RoomUserReservations = new List<RoomUserReservationDTO>
             {
-                string[] roomUserReservation = message.Text.Split(',');
-
-                var roomName = roomUserReservation[1];
-                DateTime dateTimeFrom = Convert.ToDateTime(roomUserReservation[2] + " " + roomUserReservation[3]);
-                DateTime dateTimeTo = Convert.ToDateTime(roomUserReservation[2] + " " + roomUserReservation[4]);
-
-                var userReservationToInsert = new UserReservationDTO() { Name = userName, TelegramId = telegramId, DateTimeFrom = dateTimeFrom, DateTimeTo = dateTimeTo };
-
-                var roomId = _roomService.GetRoomIdByName(roomName);
-
-                userReservationToInsert.RoomUserReservations = new List<RoomUserReservationDTO>
+                new RoomUserReservationDTO
                 {
-                    new RoomUserReservationDTO
-                    {
-                        RoomId = roomId
-                    }
-                };
+                    RoomId = roomId
+                }
+            };
 
-                _userReservationService.Insert(userReservationToInsert);
-                await _userReservationService.SaveAsync();
+            _userReservationService.Insert(userReservationToInsert);
+            await _userReservationService.SaveAsync();
 
-                await client.SendTextMessageAsync(chatId, $"Вы забронировали {roomName} на {roomUserReservation[2]} с {roomUserReservation[3]} до {roomUserReservation[4]}");
-            }
-            else
-            {
-                await client.SendTextMessageAsync(chatId, $"Вам не хватает доступа чтобы воспользоваться этой коммандой");
-            }
+            await client.SendTextMessageAsync(chatId, $"Вы забронировали {roomName} на {roomUserReservation[2]} с {roomUserReservation[3]} до {roomUserReservation[4]}");           
         }
     }
 }
