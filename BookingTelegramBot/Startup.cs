@@ -84,6 +84,7 @@ namespace BookingTelegramBot
             services.AddSingleton<AddRoomsParametersCommand>();
             services.AddSingleton<DeleteRoomParameterCommand>();
             services.AddSingleton<BookARoomCommand>();
+            services.AddSingleton<MyReservationsCommand>();
             services.AddSingleton<CommandsList>();
         }
 

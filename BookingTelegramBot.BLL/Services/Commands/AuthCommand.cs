@@ -38,7 +38,8 @@ namespace BookingTelegramBot.BLL.Services.Commands
 /getallrooms - Список всех доступных комнат
 /bookaroom - Забронировать подходящую комнату
 *Шаблон:* _/bookaroom, roomName, Day, TimeFrom, TimeTo_
-`/bookaroom, Room 3, 2020-02-18, 15:30, 15:40`";
+`/bookaroom, Room 3, 2020-02-18, 15:30, 15:40`
+/myreservations - Позволяет просмотреть ваши бронирования";
 
             var chatId = message.Chat.Id;
             var telegramId = message.From.Id;
