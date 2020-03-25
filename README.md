@@ -18,3 +18,12 @@ Clone the repo:
 4.  Add your secret
 5.  Migrations
 6.  Start application
+
+### Create your bot
+
+1.  Open Telegram
+2.  Search @BotFather
+3.  Type /newbot
+4.  Type the name of your bot
+5.  Then the username of your bot. It must end in _bot_ (example_bot)
+6.  Take the token for later use
