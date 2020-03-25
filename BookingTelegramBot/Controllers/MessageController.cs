@@ -15,16 +15,18 @@ namespace BookingTelegramBot.Controllers
     public class MessageController : ControllerBase
     {
         private readonly MessageService _messageService;
+        private readonly TimerService _timerService;
 
-        public MessageController(MessageService messageService)
+        public MessageController(MessageService messageService, TimerService timerService)
         {
             _messageService = messageService;
+            _timerService = timerService;
         }
 
         [HttpGet]
         [Route("get")]
         public string Get()
-        {            
+        {
             return "Get";
         }
         
@@ -34,7 +36,7 @@ namespace BookingTelegramBot.Controllers
         {
             if (update == null) return Ok();
 
-            await _messageService.MessageHandling(update);
+            await _messageService.MessageHandling(update);            
 
             return Ok();
         }

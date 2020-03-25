@@ -86,6 +86,8 @@ namespace BookingTelegramBot
             services.AddSingleton<BookARoomCommand>();
             services.AddSingleton<MyReservationsCommand>();
             services.AddSingleton<CommandsList>();
+
+            services.AddSingleton<TimerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
