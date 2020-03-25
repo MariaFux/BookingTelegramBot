@@ -67,3 +67,7 @@ Ngrok - secure introspectable tunnels to localhost webhook development tool and 
   }
 }
 ```
+
+### 4.  Set Webhook
+
+Follow `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=<URL_FROM_NGROK>` and webhook will be set
