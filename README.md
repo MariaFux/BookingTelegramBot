@@ -72,7 +72,7 @@ Ngrok - secure introspectable tunnels to localhost webhook development tool and 
 
 ### 4.  Set Webhook
 
-Follow `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=<URL_FROM_NGROK>` and webhook will be set
+Follow `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=<URL_FROM_NGROK>` and webhook will be set.
 
 ### 5.  Migrations
 
@@ -80,3 +80,7 @@ Follow `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=<URL_FRO
 2. At the top of the _Package Manager Console_ set as _Default project_: **BookingTelegramot.DAL**
 3. Open _Migrations_ folder in IDE (BookingTelegramot.DAL->Migrations)
 4. For each top-down migration of _Mifrations_ folder, type a `update-database <MigrationName>` in the _Package Manager Console_ (update-database FirstMigration and etc.)
+
+### 6.  Fill tables in database
+
+Open SSMS(SQL Server Managment Studio) and fill tables with suitable data.
