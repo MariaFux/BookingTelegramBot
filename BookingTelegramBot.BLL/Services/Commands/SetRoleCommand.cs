@@ -36,11 +36,11 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] userDescription = message.Text.Split(' ');
+                string[] userDescription = message.Text.Split(',');
 
-                var id = Convert.ToInt32(userDescription[1]);
-                var roleId = Convert.ToInt32(userDescription[2]);
-                var userTelegramId = Convert.ToInt32(userDescription[3]);
+                var id = Convert.ToInt32(userDescription[1].Trim());
+                var roleId = Convert.ToInt32(userDescription[2].Trim());
+                var userTelegramId = Convert.ToInt32(userDescription[3].Trim());
 
                 var userToUpdate = new UserDTO() { Id = id, RoleId = roleId, TelegramId = userTelegramId};
 

@@ -42,10 +42,10 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] roomParameter = message.Text.Split(' ');
+                string[] roomParameter = message.Text.Split(',');
 
-                var roomId = Convert.ToInt32(roomParameter[1]);
-                var parameterId = Convert.ToInt32(roomParameter[2]);
+                var roomId = Convert.ToInt32(roomParameter[1].Trim());
+                var parameterId = Convert.ToInt32(roomParameter[2].Trim());
 
                 var roomParameterToDelete = new RoomParameterDTO() { RoomId = roomId, ParameterId = parameterId };
 

@@ -32,10 +32,10 @@ namespace BookingTelegramBot.BLL.Services.Commands
         {
             var chatId = message.Chat.Id;
 
-            string[] dateTimeCount = message.Text.Split(' ');
+            string[] dateTimeCount = message.Text.Split(',');
 
-            DateTime dateTime = Convert.ToDateTime(dateTimeCount[1] + " " + dateTimeCount[2]);
-            int persons = Convert.ToInt32(dateTimeCount[3]);
+            DateTime dateTime = Convert.ToDateTime(dateTimeCount[1].Trim() + " " + dateTimeCount[2].Trim());
+            int persons = Convert.ToInt32(dateTimeCount[3].Trim());
 
             var rooms = await _roomService.GetAllFreeAsync();
 

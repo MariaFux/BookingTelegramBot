@@ -38,9 +38,9 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] parameterName = message.Text.Split(' ');
+                string[] parameterName = message.Text.Split(',');
 
-                var name = parameterName[1];
+                var name = parameterName[1].Trim();
 
                 var parameterToAdd = new ParameterDTO() { NameOfParameter = name };
 

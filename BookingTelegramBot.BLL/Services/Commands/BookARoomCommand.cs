@@ -41,9 +41,9 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
             string[] roomUserReservation = message.Text.Split(',');
 
-            var roomName = roomUserReservation[1];
-            DateTime dateTimeFrom = Convert.ToDateTime(roomUserReservation[2] + " " + roomUserReservation[3]);
-            DateTime dateTimeTo = Convert.ToDateTime(roomUserReservation[2] + " " + roomUserReservation[4]);
+            var roomName = roomUserReservation[1].Trim();
+            DateTime dateTimeFrom = Convert.ToDateTime(roomUserReservation[2].Trim() + " " + roomUserReservation[3].Trim());
+            DateTime dateTimeTo = Convert.ToDateTime(roomUserReservation[2].Trim() + " " + roomUserReservation[4].Trim());
 
             var userReservationToInsert = new UserReservationDTO() { Name = userName, TelegramId = telegramId, DateTimeFrom = dateTimeFrom, DateTimeTo = dateTimeTo };
 
@@ -60,7 +60,7 @@ namespace BookingTelegramBot.BLL.Services.Commands
             _userReservationService.Insert(userReservationToInsert);
             await _userReservationService.SaveAsync();
 
-            await client.SendTextMessageAsync(chatId, $"Вы забронировали {roomName} на {roomUserReservation[2]} с {roomUserReservation[3]} до {roomUserReservation[4]}");           
+            await client.SendTextMessageAsync(chatId, $"Вы забронировали {roomName} на {roomUserReservation[2].Trim()} с {roomUserReservation[3].Trim()} до {roomUserReservation[4].Trim()}");           
         }
     }
 }

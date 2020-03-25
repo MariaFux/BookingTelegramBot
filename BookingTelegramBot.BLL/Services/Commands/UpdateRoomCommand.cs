@@ -40,10 +40,10 @@ namespace BookingTelegramBot.BLL.Services.Commands
             {
                 string[] roomDescription = message.Text.Split(',');
 
-                var id = Convert.ToInt32(roomDescription[1]);
-                var name = roomDescription[2];
-                var description = roomDescription[3];
-                var numberOfPersons = Convert.ToInt32(roomDescription[4]);
+                var id = Convert.ToInt32(roomDescription[1].Trim());
+                var name = roomDescription[2].Trim();
+                var description = roomDescription[3].Trim();
+                var numberOfPersons = Convert.ToInt32(roomDescription[4].Trim());
 
                 var roomToUpdate = new RoomDTO() { Id = id, Name = name, Description = description, NumberOfPersons = numberOfPersons };
 

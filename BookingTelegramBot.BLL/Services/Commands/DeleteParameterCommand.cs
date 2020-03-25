@@ -37,9 +37,9 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] parameterId = message.Text.Split(' ');
+                string[] parameterId = message.Text.Split(',');
 
-                var id = Convert.ToInt32(parameterId[1]);
+                var id = Convert.ToInt32(parameterId[1].Trim());
 
                 _parameterService.Delete(id);
                 await _parameterService.SaveAsync();

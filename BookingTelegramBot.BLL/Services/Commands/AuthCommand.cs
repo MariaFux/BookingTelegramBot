@@ -33,8 +33,8 @@ namespace BookingTelegramBot.BLL.Services.Commands
         {
             var answer = @"Теперь вы можете использовать полный *перечень команд*:
 /free - Позволяет найти свободные комнаты исходя из введенных данных(дата, время, количество человек)
-*Шаблон:* _/free Date Time NumberOfPersons_
-`/free 2020-02-18 15:31 5`
+*Шаблон:* _/free, Date, Time, NumberOfPersons_
+`/free, 2020-02-18, 15:31, 5`
 /getallrooms - Список всех доступных комнат
 /bookaroom - Забронировать подходящую комнату
 *Шаблон:* _/bookaroom, roomName, Day, TimeFrom, TimeTo_
@@ -51,47 +51,46 @@ namespace BookingTelegramBot.BLL.Services.Commands
                 answer += "\n\n*Admin commands:*";
 
                 answer += "\n/createroom - Позволяет добавить новую комнату";
-                answer += "\n`Шаблон:";
-                answer += "\n/createroom, Name, Descr, PersonsCount";
-                answer += "\n/createroom, Room 1, First, 10`";
+                answer += "\n*Шаблон:* _/createroom, Name, Descr, PersonsCount_";
+                answer += "\n`/createroom, Room 1, First, 10`";
 
                 answer += "\n/updateroom - Позволяет изменить существующую комнату";
-                answer += "\n_Шаблон:_ _/updateroom, RoomId, Name, Description, NumberOfPersons_";
+                answer += "\n*Шаблон:* _/updateroom, RoomId, Name, Description, NumberOfPersons_";
                 answer += "\n`/updateroom, 1, Room 1, First room, 10`";
 
                 answer += "\n/deleteroom - Позволяет удалить существующую комнату";
-                answer += "\n_Шаблон:_ _/deleteroom RoomId_";
-                answer += "\n`/deleteroom 1`";
+                answer += "\n*Шаблон:* _/deleteroom, RoomId_";
+                answer += "\n`/deleteroom, 1`";
 
                 answer += "\n/getallusers - Список всех пользователей";
 
                 answer += "\n/setrole - Позволяет изменить роль пользователя";
-                answer += "\n_Шаблон:_ _/setrole UserId RoleId UserTelegramId_";
-                answer += "\n`/setrole 1 1 111111111`";
+                answer += "\n*Шаблон:* _/setrole, UserId, RoleId, UserTelegramId_";
+                answer += "\n`/setrole, 1, 1, 111111111`";
 
                 answer += "\n/createparameter - Позволяет добавить новый параметер";
-                answer += "\n_Шаблон:_ _/createparameter ParameterName_";
-                answer += "\n`/createparameter Projector`";
+                answer += "\n*Шаблон:* _/createparameter, ParameterName_";
+                answer += "\n`/createparameter, Red pen`";
 
                 answer += "\n/updateparameter - Позволяет изменить имеющийся параметер";
-                answer += "\n_Шаблон:_ _/updateparameter ParameterId ParameterName_";
-                answer += "\n`/updateparameter 1 Display`";
+                answer += "\n*Шаблон:* _/updateparameter, ParameterId, ParameterName_";
+                answer += "\n`/updateparameter, 1, Display`";
 
                 answer += "\n/getallparameters - Список всех параметров";
 
                 answer += "\n/deleteparameter - Позволяет удалить параметер";
-                answer += "\n_Шаблон:_ _/deleteparameter ParameterId_";
-                answer += "\n`/deleteparameter 1`";
+                answer += "\n*Шаблон:* _/deleteparameter, ParameterId_";
+                answer += "\n`/deleteparameter, 1`";
 
                 answer += "\n/allroomsparameters - Список всех комнат с параметрами";
 
                 answer += "\n/addroomsparameters - Позволяет добавить параметры к комнате";
-                answer += "\n_Шаблон:_ _/addroomsparameters RoomId ParameterIds_";
-                answer += "\n`/addroomsparameters 1 1 2 3 4 5`";
+                answer += "\n*Шаблон:* _/addroomsparameters, RoomId, ParameterIds_";
+                answer += "\n`/addroomsparameters, 1, 1, 2, 3, 4, 5`";
 
                 answer += "\n/roomsparametersdelete - Позволяет убрать параметер из комнаты";
-                answer += "\n_Шаблон:_ _/roomsparametersdelete RoomId ParameterId_";
-                answer += "\n`/roomsparametersdelete 1 4`";
+                answer += "\n*Шаблон:* _/roomsparametersdelete, RoomId, ParameterId_";
+                answer += "\n`/roomsparametersdelete, 1, 4`";
 
                 await client.SendTextMessageAsync(chatId, answer, ParseMode.Markdown);
             }
