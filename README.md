@@ -19,7 +19,8 @@ Clone the repo:
 5.  Migrations
 6.  Fill tables in database (i use SQL Server with SSMS)
 7.  Start application
-8.  Fill tables with BookingTelegramBot if you didn't fill them earlier
+8.  Fill tables with BookingTelegramBot if you didn't fill them earlier **(available only for admin)**
+9.  Try all commands of bot 
 
 ### 1.  Create your bot
 
@@ -91,4 +92,12 @@ Open SSMS(SQL Server Managment Studio) and fill tables with suitable data. For y
 2. In the browser window that appears enter URL localhost:port_/api/message/get_
 3. The bot will start waiting for the command
 
-**Important**: Under IIS the application needs to be **always on** because it uses a service with timer and iterruption can slow down the application cycle!
+:exclamation: **Important**: 
+
+Under IIS the application needs to be **always on** because it uses a service with timer and iterruption can slow down the application cycle!
+
+### 8.  Fill tables with BookingTelegramBot if you didn't fill them earlier
+
+If you didn't fill tables before start application you can do it with **BookingTelegramot**. But you must have admin rights.
+
+#### Wish you success!
