@@ -83,4 +83,12 @@ Follow `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=<URL_FRO
 
 ### 6.  Fill tables in database
 
-Open SSMS(SQL Server Managment Studio) and fill tables with suitable data.
+Open SSMS(SQL Server Managment Studio) and fill tables with suitable data. For your **TelegramId** set admin role to be able to use admin commands in BookingTelegramBot.
+
+### 7.  Start application
+
+1. Run application
+2. In the browser window that appears enter URL localhost:port_/api/message/get_
+3. The bot will start waiting for the command
+
+**Important**: Under IIS the application needs to be **always on** because it uses a service with timer and iterruption can slow down the application cycle!
