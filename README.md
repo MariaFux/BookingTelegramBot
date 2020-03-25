@@ -17,7 +17,9 @@ Clone the repo:
 3.  Replace application data with yours
 4.  Set Webhook
 5.  Migrations
-6.  Start application
+6.  Fill tables in database (i use SQL Server with SSMS)
+7.  Start application
+8.  Fill tables with BookingTelegramBot if you didn't fill them earlier
 
 ### 1.  Create your bot
 
@@ -26,7 +28,7 @@ Clone the repo:
 3.  Type /newbot
 4.  Type the name of your bot
 5.  Then the username of your bot. It must end in _bot_ (example_bot)
-6.  Take the *TELEGRAM_BOT_TOKEN* for later use
+6.  Take the **TELEGRAM_BOT_TOKEN** for later use
 
 ### 2.  Install and run ngrok
 
@@ -36,7 +38,7 @@ Ngrok - secure introspectable tunnels to localhost webhook development tool and 
 
 1.  Link for downloading - [Ngrok](https://ngrok.com/download)
 2.  Unzip the atchive
-3.  Then you need to create an account to get the *Your Tunnel Authtoken*
+3.  Then you need to create an account to get the **YOUR_AUTHTOKEN**
 4.  Run ngrok.exe
 5.  Install your Authtoken
 `ngrok authtoken <YOUR_AUTHTOKEN>`
@@ -55,7 +57,7 @@ Ngrok - secure introspectable tunnels to localhost webhook development tool and 
 `var ConnectionString = Configuration.GetConnectionString("DbConstr");`
 
 2.  Follow C:\Users\<UserName>\AppData\Roaming\Microsoft\UserSecrets and add folder with name _4f918b6e-75d9-42aa-ba9c-887a033cd3bd_ like in `<UserSecretsId>4f918b6e-75d9-42aa-ba9c-887a033cd3bd</UserSecretsId>` tag from BookingTelegramBot.csproj
-3.  Then add to the new folder *secrets.json* file
+3.  Then add to the new folder **secrets.json** file
 4.  Fill sercrets.json:
 
 ```
@@ -71,3 +73,10 @@ Ngrok - secure introspectable tunnels to localhost webhook development tool and 
 ### 4.  Set Webhook
 
 Follow `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=<URL_FROM_NGROK>` and webhook will be set
+
+### 5.  Migrations
+
+1. Follow _Tools->NuGet Package Manager->Package Manager Console_ in Visual Studio
+2. At the top of the _Package Manager Console_ set as _Default project_: **BookingTelegramot.DAL**
+3. Open _Migrations_ folder in IDE (BookingTelegramot.DAL->Migrations)
+4. For each top-down migration of _Mifrations_ folder, type a `update-database <MigrationName>` in the _Package Manager Console_ (update-database FirstMigration and etc.)
