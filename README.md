@@ -2,7 +2,7 @@
 
 BookingTelegramBot - an application for booking rooms for mettings
 
-### Quick start
+## Quick start
 
 Clone the repo:
 
@@ -10,7 +10,7 @@ Clone the repo:
  $ git clone https://github.com/MariaFux/BookingTelegramBot.git
 ```
 
-### Steps to reproduce
+## Steps to reproduce
 
 1.  Create your bot
 2.  Install and run ngrok
@@ -19,7 +19,7 @@ Clone the repo:
 5.  Migrations
 6.  Start application
 
-### Create your bot
+### 1.  Create your bot
 
 1.  Open Telegram
 2.  Search @BotFather
@@ -27,3 +27,20 @@ Clone the repo:
 4.  Type the name of your bot
 5.  Then the username of your bot. It must end in _bot_ (example_bot)
 6.  Take the token for later use
+
+### 2.  Install and run ngrok
+
+To interact with telegram bot we need ngrok.
+Ngrok - secure introspectable tunnels to localhost webhook development tool and debugging tool.
+
+1.  Link for downloading - [Ngrok](https://ngrok.com/download)
+2.  Unzip the atchive
+3.  Then you need to create an account to get the *Your Tunnel Authtoken*
+4.  Run ngrok.exe
+5.  Install your Authtoken
+`ngrok authtoken <YOUR_AUTHTOKEN>`
+6.  Find your port in BookingTelegramBot->Properties->launchSettings.json
+7.  Then you need forward to the default http port on localhost
+`ngrok http 127.0.0.1:<YOUR_PORT>`
+8.  UI will be displayed in your terminal
+9.  Take the second URL (with https) for later use
