@@ -15,12 +15,10 @@ namespace BookingTelegramBot.Controllers
     public class MessageController : ControllerBase
     {
         private readonly MessageService _messageService;
-        private readonly TimerService _timerService;
 
-        public MessageController(MessageService messageService, TimerService timerService)
+        public MessageController(MessageService messageService)
         {
             _messageService = messageService;
-            _timerService = timerService;
         }
 
         [HttpGet]
