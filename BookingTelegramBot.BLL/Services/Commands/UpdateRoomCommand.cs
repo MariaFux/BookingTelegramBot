@@ -34,6 +34,8 @@ namespace BookingTelegramBot.BLL.Services.Commands
         {
             var chatId = message.Chat.Id;
 
+            var answer = "";
+
             var telegramId = message.From.Id;
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
@@ -47,10 +49,27 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
                 var roomToUpdate = new RoomDTO() { Id = id, Name = name, Description = description, NumberOfPersons = numberOfPersons };
 
-                _roomService.Update(roomToUpdate);
-                await _roomService.SaveAsync();
+                var rooms = await _roomService.GetAllAsync();
+                foreach (var room in rooms)
+                {
+                    answer += room.Name + " ";
+                }
 
-                await client.SendTextMessageAsync(chatId, $"Изменена комната: {name}");
+                if (answer.Contains(name))
+                {
+                    await client.SendTextMessageAsync(chatId, $"Комната {name} уже существует!");
+                }
+                else if (numberOfPersons <= 0)
+                {
+                    await client.SendTextMessageAsync(chatId, $"Нельзя обновить комнату для {numberOfPersons} людей");
+                }
+                else
+                {
+                    _roomService.Update(roomToUpdate);
+                    await _roomService.SaveAsync();
+
+                    await client.SendTextMessageAsync(chatId, $"Изменена комната: {name}");
+                }                
             }
             else
             {
