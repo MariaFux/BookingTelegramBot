@@ -34,6 +34,8 @@ namespace BookingTelegramBot.BLL.Services.Commands
         {
             var chatId = message.Chat.Id;
 
+            var answer = "";
+
             var telegramId = message.From.Id;
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
@@ -46,16 +48,33 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
                 var roomToAdd = new RoomDTO() { Name = name, Description = description, NumberOfPersons = numberOfPersons };
 
-                _roomService.Insert(roomToAdd);
-                await _roomService.SaveAsync();
-                if (numberOfPersons == 1)
+                var rooms = await _roomService.GetAllAsync();
+                foreach (var room in rooms)
                 {
-                    await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человека");
+                    answer += room.Name + " ";
+                }
+
+                if (answer.Contains(name))
+                {
+                    await client.SendTextMessageAsync(chatId, $"Комната {name} уже существует!");
+                } 
+                else if (numberOfPersons <= 0)
+                {
+                    await client.SendTextMessageAsync(chatId, $"Нельзя создать комнату для {numberOfPersons} людей");
                 }
                 else
                 {
-                    await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человек");
-                }
+                    _roomService.Insert(roomToAdd);
+                    await _roomService.SaveAsync();
+                    if (numberOfPersons == 1)
+                    {
+                        await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человека");
+                    }
+                    else
+                    {
+                        await client.SendTextMessageAsync(chatId, $"Добавлена комната: {name}, для {numberOfPersons} человек");
+                    }
+                }                
             }
             else
             {
