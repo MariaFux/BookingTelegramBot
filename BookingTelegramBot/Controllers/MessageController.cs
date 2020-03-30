@@ -24,7 +24,7 @@ namespace BookingTelegramBot.Controllers
         [HttpGet]
         [Route("get")]
         public string Get()
-        {            
+        {
             return "Get";
         }
         
@@ -34,7 +34,7 @@ namespace BookingTelegramBot.Controllers
         {
             if (update == null) return Ok();
 
-            await _messageService.MessageHandling(update);
+            await _messageService.MessageHandling(update);            
 
             return Ok();
         }

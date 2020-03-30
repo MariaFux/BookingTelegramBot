@@ -43,14 +43,14 @@ namespace BookingTelegramBot.BLL.Services.Commands
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
             {
-                string[] roomParameters = message.Text.Split(' ');
+                string[] roomParameters = message.Text.Split(',');
 
-                var roomId = Convert.ToInt32(roomParameters[1]);
+                var roomId = Convert.ToInt32(roomParameters[1].Trim());
                 var parameters = roomParameters[2..roomParameters.Length];
 
                 foreach(var param in parameters)
                 {
-                    var parameterId = Convert.ToInt32(param);
+                    var parameterId = Convert.ToInt32(param.Trim());
                     var roomParameterToInsert = new RoomParameterDTO() { RoomId = roomId, ParameterId = parameterId };
                     _roomParameterService.Insert(roomParameterToInsert);
                     await _roomParameterService.SaveAsync();

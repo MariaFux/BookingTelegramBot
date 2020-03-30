@@ -88,7 +88,9 @@ namespace BookingTelegramBot
             services.AddSingleton<MyReservationsCommand>();
             services.AddSingleton<CommandsList>();
 
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingTelegramBot API", Version = "v1" }));            
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingTelegramBot API", Version = "v1" }));
+
+            services.AddHostedService<TimedHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
