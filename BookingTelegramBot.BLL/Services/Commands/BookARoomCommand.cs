@@ -57,10 +57,46 @@ namespace BookingTelegramBot.BLL.Services.Commands
                 }
             };
 
-            _userReservationService.Insert(userReservationToInsert);
-            await _userReservationService.SaveAsync();
+            var rooms = await _roomService.GetAllFreeAsync();
 
-            await client.SendTextMessageAsync(chatId, $"Вы забронировали {roomName} на {roomUserReservation[2].Trim()} с {roomUserReservation[3].Trim()} до {roomUserReservation[4].Trim()}");           
+            string find = "";
+            string answer = "";
+
+            foreach (var room in rooms)
+            {
+                foreach (var reservation in room.RoomUserReservations)
+                {
+                    if (((dateTimeFrom >= reservation.UserReservation.DateTimeFrom) && (dateTimeFrom <= reservation.UserReservation.DateTimeTo))
+                        || ((dateTimeTo >= reservation.UserReservation.DateTimeFrom) && (dateTimeTo <= reservation.UserReservation.DateTimeTo)))
+                    {
+                        find = room.Name;
+                    }
+                }
+                if (room.Name != find)
+                    answer += room.Name + " ";
+            }
+            if (answer.Contains(roomName)) 
+            {
+                if (dateTimeFrom >= dateTimeTo)
+                {
+                    await client.SendTextMessageAsync(chatId, $"Время конца не может быть меньше времени начала!");
+                } 
+                else if (DateTime.Now > dateTimeFrom)
+                {
+                    await client.SendTextMessageAsync(chatId, $"Нельзя бронировать комнату на прошедшее время!");
+                }
+                else
+                {
+                    _userReservationService.Insert(userReservationToInsert);
+                    await _userReservationService.SaveAsync();
+
+                    await client.SendTextMessageAsync(chatId, $"Вы забронировали {roomName} на {roomUserReservation[2].Trim()} с {roomUserReservation[3].Trim()} до {roomUserReservation[4].Trim()}");
+                }
+            }
+            else
+            {
+                await client.SendTextMessageAsync(chatId, $"Комната {roomName} занята в указанный период времени! Воспользуйтесь командой /free, чтобы посмотреть свободные комнаты в ваше время!");
+            }                                  
         }
     }
 }

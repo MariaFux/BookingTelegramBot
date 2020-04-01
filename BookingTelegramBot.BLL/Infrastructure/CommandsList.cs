@@ -27,13 +27,14 @@ namespace BookingTelegramBot.BLL.Infrastructure
         private readonly DeleteRoomParameterCommand _deleteRoomParameterCommand;
         private readonly BookARoomCommand _bookARoomCommand;
         private readonly MyReservationsCommand _myReservationsCommand;
+        private readonly CommandsListCommand _commandsListCommand;
 
         public CommandsList(AuthCommand authCommand, FreeCommand freeCommand, CreateRoomCommand createRoomCommand,
             UpdateRoomCommand updateRoomCommand, GetAllRoomsCommand getAllRoomsCommand, DeleteRoomCommand deleteRoomCommand, GetAllUsersCommand getAllUsersCommand,
             SetRoleCommand setRoleCommand, CreateParameterCommand createParameterCommand, UpdateParameterCommand updateParameterCommand,
             GetAllParametersCommand getAllParametersCommand, DeleteParameterCommand deleteParameterCommand, AllRoomsParametersCommand allRoomsParametersCommand,
             AddRoomsParametersCommand addRoomsParametersCommand, DeleteRoomParameterCommand deleteRoomParameterCommand, BookARoomCommand bookARoomCommand,
-            MyReservationsCommand myReservationsCommand)
+            MyReservationsCommand myReservationsCommand, CommandsListCommand commandsListCommand)
         {
             _authCommand = authCommand;
             _freeCommand = freeCommand;
@@ -52,6 +53,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _deleteRoomParameterCommand = deleteRoomParameterCommand;
             _bookARoomCommand = bookARoomCommand;
             _myReservationsCommand = myReservationsCommand;
+            _commandsListCommand = commandsListCommand;
             Initialize();
         }        
 
@@ -84,6 +86,7 @@ namespace BookingTelegramBot.BLL.Infrastructure
             _commandsList.Add(_deleteRoomParameterCommand);
             _commandsList.Add(_bookARoomCommand);
             _commandsList.Add(_myReservationsCommand);
+            _commandsList.Add(_commandsListCommand);
         }
     }
 }

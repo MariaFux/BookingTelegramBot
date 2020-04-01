@@ -34,6 +34,8 @@ namespace BookingTelegramBot.BLL.Services.Commands
         {
             var chatId = message.Chat.Id;
 
+            var answer = "";
+
             var telegramId = message.From.Id;
             var user = await _userService.FindByTelegramIdAsync(telegramId);
             if (user != null && user.Role.UserRole.ToString() == "admin")
@@ -44,10 +46,23 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
                 var parameterToAdd = new ParameterDTO() { NameOfParameter = name };
 
-                _parameterService.Insert(parameterToAdd);
-                await _parameterService.SaveAsync();
+                var parameters = await _parameterService.GetAllAsync();
+                foreach (var parameter in parameters)
+                {
+                    answer += parameter.NameOfParameter + " ";
+                }
 
-                await client.SendTextMessageAsync(chatId, $"Добавлен параметер {name}");
+                if (answer.Contains(name))
+                {
+                    await client.SendTextMessageAsync(chatId, $"Параметер {name} уже существует!");                
+                }
+                else
+                {
+                    _parameterService.Insert(parameterToAdd);
+                    await _parameterService.SaveAsync();
+
+                    await client.SendTextMessageAsync(chatId, $"Добавлен параметер {name}");
+                }
             }
             else
             {

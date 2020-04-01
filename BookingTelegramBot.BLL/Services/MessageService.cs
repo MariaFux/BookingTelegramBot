@@ -32,9 +32,17 @@ namespace BookingTelegramBot.BLL.Services
             {
                 if (command.Contains(message))
                 {
-                    await command.Execute(message, botClient);
-                    isACommand = true;
-                    break;
+                    try
+                    {
+                        await command.Execute(message, botClient);
+                        isACommand = true;
+                        break;
+                    }
+                    catch
+                    {
+                        isACommand = true;
+                        await botClient.SendTextMessageAsync(message.Chat.Id, "Проверьте правильность введенных данных! Воспользуйтесь командой /commandslist, чтобы посмотреть шаблон нужной вам команды!");                        
+                    }
                 }
             }
 
