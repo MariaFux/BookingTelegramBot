@@ -39,7 +39,7 @@ namespace BookingTelegramBot.BLL.Services.Commands
 
             foreach (var reservation in reservations)
             {
-                answer += $"\n{reservation.Name}, {reservation.DateTimeFrom.ToShortDateString()}, с {reservation.DateTimeFrom.TimeOfDay}, до {reservation.DateTimeTo.TimeOfDay}, ";
+                answer += $"\n{reservation.UserName}, {reservation.DateTimeFrom.ToShortDateString()}, с {reservation.DateTimeFrom.TimeOfDay}, до {reservation.DateTimeTo.TimeOfDay}, ";
                 foreach (var room in reservation.RoomUserReservations)
                 {
                     answer += $"{room.Room.Name} на {room.Room.NumberOfPersons} человек";

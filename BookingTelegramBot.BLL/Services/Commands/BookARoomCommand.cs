@@ -45,7 +45,7 @@ namespace BookingTelegramBot.BLL.Services.Commands
             DateTime dateTimeFrom = Convert.ToDateTime(roomUserReservation[2].Trim() + " " + roomUserReservation[3].Trim());
             DateTime dateTimeTo = Convert.ToDateTime(roomUserReservation[2].Trim() + " " + roomUserReservation[4].Trim());
 
-            var userReservationToInsert = new UserReservationDTO() { Name = userName, TelegramId = telegramId, DateTimeFrom = dateTimeFrom, DateTimeTo = dateTimeTo };
+            var userReservationToInsert = new UserReservationDTO() { UserName = userName, TelegramId = telegramId, DateTimeFrom = dateTimeFrom, DateTimeTo = dateTimeTo };
 
             var roomId = _roomService.GetRoomIdByName(roomName);
 
