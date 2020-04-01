@@ -6,9 +6,11 @@ using AutoMapper;
 using BookingTelegramBot.BLL.Infrastructure;
 using BookingTelegramBot.BLL.Mapper;
 using BookingTelegramBot.BLL.Services;
+using BookingTelegramBot.BLL.Services.v2;
 using BookingTelegramBot.BLL.Services.Commands;
 using BookingTelegramBot.DAL.EF;
 using BookingTelegramBot.DAL.Repositories;
+using BookingTelegramBot.DAL.Repositories.v2;
 using BookingTelegramBot.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -46,6 +48,8 @@ namespace BookingTelegramBot
             services.AddTransient<UserRepo>();
             services.AddTransient<RoomParameterRepo>();
             services.AddTransient<RoomUserReservationRepo>();
+            services.AddTransient<RoomRepoV2>();
+            services.AddTransient<UserRepoV2>();
 
             services.AddTransient<ParameterService>();
             services.AddTransient<RoomService>();
@@ -54,6 +58,8 @@ namespace BookingTelegramBot
             services.AddTransient<MessageService>();
             services.AddTransient<RoomParameterService>();
             services.AddTransient<RoomUserReservationService>();
+            services.AddTransient<RoomServiceV2>();
+            services.AddTransient<UserServiceV2>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()), typeof(Startup));
@@ -90,7 +96,7 @@ namespace BookingTelegramBot
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingTelegramBot API", Version = "v1" }));
 
-            services.AddHostedService<TimedHostedService>();
+            //services.AddHostedService<TimedHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
