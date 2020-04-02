@@ -107,7 +107,7 @@ LEFT JOIN UsersReservations ur ON rur.UserReservationId = ur.Id";
                         r.RoomUserReservations.Add(rur);
                     }
                     return r;
-                }, splitOn: "DateTimeFrom, DateTimeTo");
+                }, splitOn: "UserReservationId, Id");
                 var res = query.GroupBy(r => r.Id).Select(g =>
                 {
                     var groupedRoom = g.First();
