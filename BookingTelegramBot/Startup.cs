@@ -92,6 +92,7 @@ namespace BookingTelegramBot
             services.AddSingleton<DeleteRoomParameterCommand>();
             services.AddSingleton<BookARoomCommand>();
             services.AddSingleton<MyReservationsCommand>();
+            services.AddSingleton<CommandsListCommand>();
             services.AddSingleton<CommandsList>();
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingTelegramBot API", Version = "v1" }));
