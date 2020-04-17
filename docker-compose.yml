@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+    db:
+        image: microsoft/mssql-server-windows-developer:2017
+        environment:
+            - SA_PASSWORD=123passwordNEW
+            - ACCEPT_EULA=Y
+        ports:
+            - "1433:1433"
+    bookingtelegrambot:
+        image: bookingtelegrambot        
+        environment:
+            - BotSettings__Token=${BotSettings__Token}
+            - BotSettings__Name=${BotSettings__Name}
+            - BotSettings__BaseUrl=${BotSettings__BaseUrl}
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        ports:
+            - "52750:80"        
+        depends_on:
+            - db
